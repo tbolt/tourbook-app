@@ -30,16 +30,16 @@ import ConcertDatabase from './Database';
 
 import {ListView} from 'realm/react-native';
 
-var Icon = require('react-native-vector-icons/FontAwesome');
+// var Icon = require('react-native-vector-icons/FontAwesome');
 
-var EventEmitter = require('wolfy87-eventemitter');
-var Swipeout = require('react-native-swipeout');
+// var EventEmitter = require('wolfy87-eventemitter');
+// var Swipeout = require('react-native-swipeout');
 
-var rightButtonHandler = new EventEmitter();
+// var rightButtonHandler = new EventEmitter();
 
-var SearchResults = require('./SearchResults');
-var ConcertDetailView = require('./ConcertDetailView');
-var EditConcertPage = require('./EditConcertPage');
+// var SearchResults = require('./SearchResults');
+// var ConcertDetailView = require('./ConcertDetailView');
+// var EditConcertPage = require('./EditConcertPage');
 
 var styles = StyleSheet.create({
   container: {

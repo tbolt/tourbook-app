@@ -33,16 +33,16 @@ import {ListView} from 'realm/react-native';
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 
-var music = (<Icon name="music" size={30} color="#900" />);
+// var music = (<Icon name="music" size={30} color="#900" />);
 
-var EventEmitter = require('wolfy87-eventemitter');
-var Swipeout = require('react-native-swipeout');
+// var EventEmitter = require('wolfy87-eventemitter');
+// var Swipeout = require('react-native-swipeout');
 
-var rightButtonHandler = new EventEmitter();
+// var rightButtonHandler = new EventEmitter();
 
-var SearchResults = require('./SearchResults');
-var ConcertDetailView = require('./ConcertDetailView');
-var EditConcertPage = require('./EditConcertPage');
+// var SearchResults = require('./SearchResults');
+// var ConcertDetailView = require('./ConcertDetailView');
+// var EditConcertPage = require('./EditConcertPage');
 
 var styles = StyleSheet.create({
   container: {

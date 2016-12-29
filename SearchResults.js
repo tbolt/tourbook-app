@@ -14,19 +14,17 @@
   *
 */}
 
-var React = require('react-native');
-
-import { ListView } from 'realm/react-native';
-import ConcertDatabase from './Database';
-
-var {
+import React, { Component } from 'react';
+import {
   StyleSheet,
   Image,
   View,
   TouchableHighlight,
-  Text,
-  Component
-} = React;
+  Text
+} from 'react-native';
+
+import { ListView } from 'realm/react-native';
+import ConcertDatabase from './Database';
 
 var ConcertDetailView = require('./ConcertDetailView');
 
