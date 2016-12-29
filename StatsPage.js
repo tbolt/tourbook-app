@@ -35,7 +35,6 @@ var Icon = require('react-native-vector-icons/FontAwesome');
 var music = (<Icon name="music" size={30} color="#900" />);
 
 var EventEmitter = require('wolfy87-eventemitter');
-var Swipeout = require('react-native-swipeout');
 
 var rightButtonHandler = new EventEmitter();
 
