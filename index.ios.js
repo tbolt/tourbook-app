@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'orange',
     paddingTop: 64
-  },
+  }
 });
 
 AppRegistry.registerComponent('tourbooknew', () => tourbooknew);
