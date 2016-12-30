@@ -40,6 +40,8 @@ var SearchResults = require('./SearchResults');
 var ConcertDetailView = require('./ConcertDetailView');
 var EditConcertPage = require('./EditConcertPage');
 
+var Swipeout = require('react-native-swipeout');
+
 var styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -315,13 +317,29 @@ rowPressed(artist) {
 }
 
 renderRow(rowData) {
-
-
+  // Buttons
+  var swipeoutBtns = [
+    {
+      text: 'Delete',
+      backgroundColor: '#FF5050',
+      underlayColor: '#282828',
+      autoClose: 'yes',
+      onPress: function(){
+        ConcertDatabase.write(() => {
+          let allConcerts = ConcertDatabase.objects('Concert');
+          let stringyFilter = "guid == \""+rowData.guid+"\"";
+          let selectedConcert = allConcerts.filtered(stringyFilter);
+          ConcertDatabase.delete(selectedConcert);
+          // Update list view
+        });
+        //this.refreshListView();
+      }
+    }
+  ]
   let concertDate = rowData.date.toString();
-
   return (
     // Swipeout component
-    <View>
+    <Swipeout right={swipeoutBtns} autoClose={true} backgroundColor={'#333333'} >
     <TouchableHighlight onPress={() => this.rowPressed(rowData.artist)}
         underlayColor='#333333'>
         <View style={styles.concertRowContainer}>
@@ -335,10 +353,10 @@ renderRow(rowData) {
         </View>
     </TouchableHighlight>
     <View style={styles.separator}/>
-    </View>
-
+    </Swipeout>
   );
 }
+
 
 render() {
 
