@@ -26,7 +26,8 @@ import {
   TouchableHighlight,
   ActivityIndicatorIOS,
   Image,
-  DatePickerIOS
+  DatePickerIOS,
+  findNodeHandle
 } from 'react-native';
 
 var Platform = require('react-native').Platform;
@@ -603,16 +604,18 @@ render() {
             */}
           </View>
           <View style={styles.lastTextInputField}>
-            <TextInput
-            style={styles.notesInput}
-            multiline={true}
-            ref='username'
-            onFocus={this.inputFocused.bind(this, 'username')}
-            maxLength={400}
-            placeholderTextColor={'#808080'}
-            value={this.state.notesString}
-            onEndEditing={this.onNotesTextChanged.bind(this)}
-            placeholder='Notes'/>
+           <TextInput
+              autoFocus = {true}
+              editable = {true}
+              maxLength = {40}
+              style={styles.notesInput}
+              multiline={true}
+              value={this.state.notesString}
+              maxLength={400}
+              placeholderTextColor={'#808080'}
+              onEndEditing={this.onNotesTextChanged.bind(this)}
+              placeholder='Notes'
+            />
           </View>
         </View>
       </View>

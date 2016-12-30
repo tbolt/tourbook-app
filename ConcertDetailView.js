@@ -221,6 +221,7 @@ class ConcertDetailView extends Component {
     console.log(concerts[index].showNotes);
     return (
       <View style={styles.concertDetailContainer}>
+
         <Lightbox><Image style={styles.concertDetailImage} source={{uri: concerts[index].concertPhoto}}>
           <View style={styles.concertDetailBlurWrapper}>
           <BlurView blurType="light" style={styles.concertDetailBlurBox}>

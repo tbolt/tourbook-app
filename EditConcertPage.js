@@ -19,7 +19,7 @@ import {
   Modal,
   StyleSheet,
   Text,
-  SliderIOS,
+  Slider,
   ScrollView,
   TextInput,
   View,
@@ -553,7 +553,7 @@ render() {
           {dateInputBox}
           <View style={styles.textInputFields}>
             <Text style={styles.ratingInput}>Rating  <Text style={styles.sliderInputText} >{this.state.concertRatingSlider}</Text></Text>
-            <SliderIOS style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
+            <Slider style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
             {/* Old rating system
             <Text style={styles.ratingInput} >Rating</Text>
             <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(0) }} >
@@ -588,13 +588,18 @@ render() {
           */}
           </View>
           <View style={styles.lastTextInputField}>
-            <TextInput
-            style={styles.notesInput}
-            multiline={true}
-            maxLength={400}
-            placeholderTextColor={'#fff'}
-            value={this.state.showNotes}
-            onChange={this.onNotesTextChanged.bind(this)}/>
+           <TextInput
+              autoFocus = {true}
+              editable = {true}
+              maxLength = {40}
+              style={styles.notesInput}
+              multiline={true}
+              value={this.state.notesString}
+              maxLength={400}
+              placeholderTextColor={'#808080'}
+              onEndEditing={this.onNotesTextChanged.bind(this)}
+              placeholder='Notes'
+            />
           </View>
         </View>
       </View>

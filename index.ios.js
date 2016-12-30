@@ -18,6 +18,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  StatusBar,
   Text,
   View,
   TabBarIOS,
@@ -27,7 +28,8 @@ import {
 
 import ConcertDatabase from './Database';
 
-var Icon = require('react-native-vector-icons/Entypo');
+import Icon from 'react-native-vector-icons/Entypo';
+//
 var EventEmitter = require('wolfy87-eventemitter');
 
 var AddConcertPage = require('./AddConcertPage');
@@ -50,13 +52,14 @@ export default class tourbooknew extends Component {
   }
 
   render() {
+    <StatusBar barStyle="light-content" />
     return (
      <TabBarIOS
-       tintColor={'#50E3C2'}
-       barTintColor={'#282828'}
+      tintColor={'#50E3C2'}
+      barTintColor={'#282828'}
       translucent={false}>
         {/* Home Page */}
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title="Home"
           iconName="home"
           selectedIconName="home"
@@ -96,9 +99,9 @@ export default class tourbooknew extends Component {
                 }
                 })
           }} />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
       {/* Favorites Page */}
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title="Favorites"
           iconName="star"
           selectedIconName="star"
@@ -121,9 +124,9 @@ export default class tourbooknew extends Component {
               title: 'Tourbook',
               component: FavoritesPage,
           }} />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
       {/* Stats Page */}
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title="Stats"
           iconName="line-graph"
           selectedIconName="line-graph"
@@ -146,9 +149,9 @@ export default class tourbooknew extends Component {
                 title: 'Tourbook',
                 component: StatsPage
             }} />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
       {/* Settings Page
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title=""
           iconName="sound-mix"
           selectedIconName="sound-mix"
@@ -182,7 +185,7 @@ export default class tourbooknew extends Component {
                     }
                     }),
           }} />
-        </TabBarIOS.Item> */}
+        </Icon.TabBarItemIOS> */}
       </TabBarIOS>
     );
   }
