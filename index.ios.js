@@ -36,13 +36,18 @@ var FavoritesPage = require('./FavoritesPage');
 var SettingsPage = require('./SettingsPage');
 var StatsPage = require('./StatsPage');
 
+var rightButtonHandler = new EventEmitter();
+
 export default class tourbooknew extends Component {
 
   state = {
-    selectedTab: 'redTab',
-    notifCount: 0,
-    presses: 0,
+    selectedTab: 'firstTab',
   };
+
+  handleSaveButton() {
+    //console.log('handleSaveButton called');
+    rightButtonHandler.emitEvent('saveButtonPressed');
+  }
 
   render() {
     return (
@@ -71,8 +76,8 @@ export default class tourbooknew extends Component {
               backButtonTitle: 'Back',
               navigationBarHidden: false,
               translucent: false,
-              leftButtonIcon: <Image source={require('./images/gear.png')} />,
-              rightButtonIcon: <Image source={require('./images/add.png')} />,
+              leftButtonIcon: require('./images/gear.png'),
+              rightButtonIcon: require('./images/add.png'),
               title: 'Tourbook',
               component: ConcertDirectory,
               onLeftButtonPress: () => this.refs.navHome.push({

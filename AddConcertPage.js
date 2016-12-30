@@ -21,7 +21,7 @@ import {
   Text,
   ScrollView,
   TextInput,
-  SliderIOS,
+  Slider,
   View,
   TouchableHighlight,
   ActivityIndicatorIOS,
@@ -568,7 +568,7 @@ render() {
 
           <View style={styles.textInputFields}>
             <Text style={styles.ratingInput}>Rating  <Text style={styles.sliderInputText} >{this.state.concertRatingSlider}</Text></Text>
-            <SliderIOS style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
+            <Slider style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
 
           {/* Old rating system
             <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('zeroNote') }} >
