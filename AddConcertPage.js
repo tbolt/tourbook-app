@@ -29,7 +29,8 @@ import {
   DatePickerIOS
 } from 'react-native';
 
-var ImagePickerManager = require('NativeModules').ImagePickerManager;
+var Platform = require('react-native').Platform;
+var ImagePicker = require('react-native-image-picker');
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -155,7 +156,6 @@ var styles = StyleSheet.create({
     padding: 10,
   },
   dateView: {
-    backgroundColor: '#979797',
     alignItems: 'center'
   },
   uploadShowPicture: {
@@ -325,12 +325,12 @@ showConcertImagePicker() {
         path: 'images' // will save image at /Documents/images rather than the root
       }
     };
-    ImagePickerManager.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePickerManager Error: ', response.error);
+        console.log('ImagePicker Error: ', response.error);
       }
       else {
           // Base64 Image (on iOS)
@@ -360,12 +360,12 @@ showTicketImagePicker() {
         path: 'images' // will save image at /Documents/images rather than the root
       }
     };
-    ImagePickerManager.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePickerManager Error: ', response.error);
+        console.log('ImagePicker Error: ', response.error);
       }
       else {
           // Base64 Image (on iOS)
@@ -498,9 +498,9 @@ render() {
           </TouchableHighlight> : null;
 
     var dateInputBox = (this.state.isDatePickerVisible)?
-          <View style={styles.dateView}>
+          <View>
             <DatePickerIOS
-            style={styles.datePickerView}
+
             date={this.state.date}
             mode="date"
             onDateChange={this.onDateChange.bind(this)} />
