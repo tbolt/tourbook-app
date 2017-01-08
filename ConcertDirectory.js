@@ -17,6 +17,7 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  StatusBar,
   Text,
   TextInput,
   View,
@@ -25,22 +26,17 @@ import {
   Image,
   RefreshControl
 } from 'react-native';
-
-import ConcertDatabase from './Database';
-
 import {ListView} from 'realm/react-native';
 
-let Icon = require('react-native-vector-icons/FontAwesome');
+import ConcertDatabase from './Database';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import EventEmitter from 'wolfy87-eventemitter';
 
-let EventEmitter = require('wolfy87-eventemitter');
+import ConcertDetailView from './ConcertDetailView';
+import EditConcertPage from './EditConcertPage';
+import Swipeout from 'react-native-swipeout';
 
-let rightButtonHandler = new EventEmitter();
-
-let SearchResults = require('./SearchResults');
-let ConcertDetailView = require('./ConcertDetailView');
-let EditConcertPage = require('./EditConcertPage');
-
-let Swipeout = require('react-native-swipeout');
+let rightButtonHandler = new EventEmitter()
 
 let styles = StyleSheet.create({
   container: {
@@ -148,273 +144,194 @@ let styles = StyleSheet.create({
 
 });
 
-{/* Old Code - Remove Soon
-function urlForQueryAndPage(key, value, pageNumber) {
-
-  let data = {
-      country: 'uk',
-      pretty: '1',
-      encoding: 'json',
-      listing_type: 'buy',
-      action: 'search_listings',
-      page: pageNumber,
-  };
-
-  data[key] = value;
-
-  let querystring = Object.keys(data)
-    .map(key => key + '=' + encodeURIComponent(data[key]))
-    .join('&');
-
-  return 'http://api.nestoria.co.uk/api?' + querystring;
-};
-*/}
-
 class ConcertDirectory extends Component {
 
-handleSaveButton() {
+  handleSaveButton() {
     rightButtonHandler.emitEvent('editSaveButtonPressed');
-}
-
-constructor(props) {
-  super(props);
-
-  let dataSource = new ListView.DataSource({
-        rowHasChanged(a, b) {
-            // Always re-render items.
-            return a.done !== b.done || a.text !== b.text || a.items || b.items;
-        }
-  });
-
-  this.state = {
-      searchString: 'london',
-      isLoading: false,
-      message: '',
-      refreshing: false,
-      hasConcerts: false,
-      dataSource: dataSource.cloneWithRows(this.getConcertData())
-  };
-
-}
-
-componentDidMount() {
-  // Check if there are any concerts in the database
-  let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
-  if(concertCheck.length == 0){
-    this.setState({hasConcerts: false});
-  } else if(concertCheck.length > 0){
-    this.setState({hasConcerts: true});
   }
 
-}
-
-componentWillReceiveProps() {
-  console.log('yay this runs...');
-  this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
-
-  let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
-
-  if(concertCheck.length == 0){
-    this.setState({hasConcerts: false});
-  } else if(concertCheck.length >= 1){
-    this.setState({
-      hasConcerts: true
+  constructor(props) {
+    super(props);
+    let dataSource = new ListView.DataSource({
+          rowHasChanged(a, b) {
+              // Always re-render items.
+              return a.done !== b.done || a.text !== b.text || a.items || b.items;
+          }
     });
+    this.state = {
+        isLoading: false,
+        message: '',
+        refreshing: false,
+        hasConcerts: false,
+        dataSource: dataSource.cloneWithRows(this.getConcertData())
+    };
   }
-}
-getConcertData() {
-  let concertData = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
-  return concertData;
-}
 
-_executeQuery(query) {
+  componentDidMount() {
+    // Check if there are any concerts in the database
+    let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+    if(concertCheck.length == 0){
+      this.setState({hasConcerts: false});
+    } else if(concertCheck.length > 0){
+      this.setState({hasConcerts: true});
+    }
 
-  this.setState({ isLoading: true });
-  fetch(query)
-  .then(response => response.json())
-  .then(json => this._handleResponse(json.response))
-  .catch(error =>
-     this.setState({
-      isLoading: false,
-      message: 'Something bad happened ' + error
-   }));
-}
-
-_handleResponse(response) {
-
-  this.setState({ isLoading: false , message: '' });
-  if (response.application_response_code.substr(0, 1) === '1') {
-    this.props.navigator.push({
-          title: 'Tourbook',
-          component: SearchResults,
-          passProps: {concerts: this.getConcertData()}
-        });
-  } else {
-    this.setState({ message: 'Location not recognized; please try again.'});
   }
-}
 
-refreshListView() {
+  componentWillReceiveProps() {
+    console.log('yay this runs...');
+    this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
+
+    let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+
+    if(concertCheck.length == 0){
+      this.setState({hasConcerts: false});
+    } else if(concertCheck.length >= 1){
+      this.setState({
+        hasConcerts: true
+      });
+    }
+  }
+
+  getConcertData() {
+    let concertData = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+    return concertData;
+  }
+
+  refreshListView() {
     this.setState({refreshing: true});
     this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
     this.setState({refreshing: false});
-}
-
-onDeletePressed() {
-  alert('delete func called');
-  /* Grab concert by guid and remove it from db */
-
-  /* Refresh listview db */
-
-}
-
-onSearchPressed() {
-  let query = urlForQueryAndPage('place_name', this.state.searchString, 1);
-  this._executeQuery(query);
-}
-
-onSearchTextChanged(event) {
-  console.log('onSearchTextChanged');
-  this.setState({ searchString: event.nativeEvent.text });
-  console.log(this.state.searchString);
-}
-rowPressed(artist) {
-
-  let artistIndex = artist;
-
-  function indexOfId(array, id) {
-    for (let i=0; i<array.length; i++) {
-       if (array[i].artist==id) return i;
-    }
-    console.log("Artist array out of bounds");
-    return -1;
   }
 
-  artistIndex = indexOfId(this.getConcertData(), artist)
+  onDeletePressed() {
+    alert('delete func called');
+    /* Grab concert by guid and remove it from db */
 
-  this.props.navigator.push({
-    title: "",
-    translucent: false,
-    component: ConcertDetailView,
-    passProps: {concerts: this.getConcertData(), row: artistIndex},
-    rightButtonTitle: "Edit",
-    backButtonTitle: 'Back',
-    onRightButtonPress: () => this.props.navigator.push({
-        title: "",
-        component: EditConcertPage,
-        translucent: false,
-        passProps: {
-          concerts: this.getConcertData(), row: artistIndex
-        },
-        rightButtonTitle: "Save",
-        onRightButtonPress: () => this.handleSaveButton(),
-        passProps: {
-          events: rightButtonHandler, concerts: this.getConcertData(), row: artistIndex
-        }
-        })
+    /* Refresh listview db */
 
-  });
-}
+  }
 
-renderRow(rowData) {
-  // Buttons
-  let swipeoutBtns = [
-    {
-      text: 'Delete',
-      backgroundColor: '#FF5050',
-      underlayColor: '#282828',
-      autoClose: 'yes',
-      onPress: function(){
-        ConcertDatabase.write(() => {
-          let allConcerts = ConcertDatabase.objects('Concert');
-          let stringyFilter = "guid == \""+rowData.guid+"\"";
-          let selectedConcert = allConcerts.filtered(stringyFilter);
-          ConcertDatabase.delete(selectedConcert);
-          // Update list view
-        });
-        //this.refreshListView();
+  onSearchPressed() {
+    let query = urlForQueryAndPage('place_name', this.state.searchString, 1);
+    this._executeQuery(query);
+  }
+
+  onSearchTextChanged(event) {
+    console.log('onSearchTextChanged');
+    this.setState({ searchString: event.nativeEvent.text });
+    console.log(this.state.searchString);
+  }
+
+  rowPressed(artist) {
+
+    let artistIndex = artist;
+
+    function indexOfId(array, id) {
+      for (let i=0; i<array.length; i++) {
+         if (array[i].artist==id) return i;
       }
+      console.log("Artist array out of bounds");
+      return -1;
     }
-  ]
-  let concertDate = rowData.date.toString();
-  return (
-    // Swipeout component
-    <Swipeout right={swipeoutBtns} autoClose={true} backgroundColor={'#333333'} >
-    <TouchableHighlight onPress={() => this.rowPressed(rowData.artist)}
-        underlayColor='#333333'>
-        <View style={styles.concertRowContainer}>
-          <Image style={styles.concertThumbnail} source={{ uri: rowData.concertPhoto }} />
-          <View style={styles.concertTextContainer}>
-            <Text style={styles.concertTextArtist} numberOfLines={1}>{rowData.artist}</Text>
-            <Text style={styles.concertTextVenue} numberOfLines={1}>{rowData.venue}</Text>
-            <Text style={styles.concertTextLocationAndDate} numberOfLines={1}>{rowData.location}  {concertDate}</Text>
+
+    artistIndex = indexOfId(this.getConcertData(), artist)
+
+    this.props.navigator.push({
+      title: "",
+      translucent: false,
+      component: ConcertDetailView,
+      passProps: {concerts: this.getConcertData(), row: artistIndex},
+      rightButtonTitle: "Edit",
+      backButtonTitle: 'Back',
+      onRightButtonPress: () => this.props.navigator.push({
+          title: "",
+          component: EditConcertPage,
+          translucent: false,
+          passProps: {
+            concerts: this.getConcertData(), row: artistIndex
+          },
+          rightButtonTitle: "Save",
+          onRightButtonPress: () => this.handleSaveButton(),
+          passProps: {
+            events: rightButtonHandler, concerts: this.getConcertData(), row: artistIndex
+          }
+          })
+
+    });
+  }
+
+  renderRow(rowData) {
+    // Buttons
+    let swipeoutBtns = [
+      {
+        text: 'Delete',
+        backgroundColor: '#FF5050',
+        underlayColor: '#282828',
+        autoClose: 'yes',
+        onPress: function(){
+          ConcertDatabase.write(() => {
+            let allConcerts = ConcertDatabase.objects('Concert');
+            let stringyFilter = "guid == \""+rowData.guid+"\"";
+            let selectedConcert = allConcerts.filtered(stringyFilter);
+            ConcertDatabase.delete(selectedConcert);
+            // Update list view
+          });
+          //this.refreshListView();
+        }
+      }
+    ]
+    let concertDate = rowData.date.toString();
+    return (
+      // Swipeout component
+      <Swipeout right={swipeoutBtns} autoClose={true} backgroundColor={'#333333'} >
+      <TouchableHighlight onPress={() => this.rowPressed(rowData.artist)}
+          underlayColor='#333333'>
+          <View style={styles.concertRowContainer}>
+            <Image style={styles.concertThumbnail} source={{ uri: rowData.concertPhoto }} />
+            <View style={styles.concertTextContainer}>
+              <Text style={styles.concertTextArtist} numberOfLines={1}>{rowData.artist}</Text>
+              <Text style={styles.concertTextVenue} numberOfLines={1}>{rowData.venue}</Text>
+              <Text style={styles.concertTextLocationAndDate} numberOfLines={1}>{rowData.location}  {concertDate}</Text>
+            </View>
+            <Text style={styles.concertRating}>{rowData.rating}</Text>
           </View>
-          <Text style={styles.concertRating}>{rowData.rating}</Text>
-        </View>
-    </TouchableHighlight>
-    <View style={styles.separator}/>
-    </Swipeout>
-  );
-}
+      </TouchableHighlight>
+      <View style={styles.separator}/>
+      </Swipeout>
+    );
+  }
 
+  render() {
+    let spinner = this.state.isLoading ?
+      ( <ActivityIndicatorIOS
+          hidden='true'
+          size='large'/> ) :
+      ( <View/>);
 
-render() {
+    let placeholderText = (!this.state.hasConcerts)?
+        <View style={styles.placeholderTextWrapper}>
+          <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('image!musicnote')} />
+          <Text style={styles.placeholderText}>
+            No Concerts Added Yet
+          </Text>
+        </View> : null;
 
-  let spinner = this.state.isLoading ?
-    ( <ActivityIndicatorIOS
-        hidden='true'
-        size='large'/> ) :
-    ( <View/>);
+    let concertListView = (this.state.hasConcerts)?
+        <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow.bind(this)}/>
+         : null;
 
-  let placeholderText = (!this.state.hasConcerts)?
-      <View style={styles.placeholderTextWrapper}>
-        {/*
-        <Text style={styles.welcome}>
-           Count of Concerts in ConcertDatabase: {ConcertDatabase.objects('Concert').length}
-        </Text>
-        */}
-        <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('image!musicnote')} />
-        <Text style={styles.placeholderText}>
-          No Concerts Added Yet
-        </Text>
-      </View> : null;
-
-  let concertListView = (this.state.hasConcerts)?
-      <ListView
-      dataSource={this.state.dataSource}
-      renderRow={this.renderRow.bind(this)}/>
-       : null;
-
-
-  return (
-
-    <View style={styles.container}>
-      {placeholderText}
-      {concertListView}
-
-      <Text style={styles.description}>{this.state.message}</Text>
-
-      {/* Old Code - Remove Soon
-      <View style={styles.flowRight}>
-        <TextInput
-            style={styles.searchInput}
-            value={this.state.searchString}
-            onChange={this.onSearchTextChanged.bind(this)}
-            placeholder='Search via name or postcode'/>
-        <TouchableHighlight
-            onPress={this.onSearchPressed.bind(this)}
-            style={styles.button}
-            underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Go</Text>
-        </TouchableHighlight>
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
+        {placeholderText}
+        {concertListView}
+        {spinner}
       </View>
-      */}
-      {spinner}
-
-
-    </View>
-  );
-}
+    );
+  }
 }
 
 module.exports = ConcertDirectory;

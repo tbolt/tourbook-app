@@ -29,7 +29,6 @@ import {
 
 import ConcertDatabase from './Database';
 
-
 let styles = StyleSheet.create({
 container: {
     flex: 1,

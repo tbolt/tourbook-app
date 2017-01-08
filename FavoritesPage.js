@@ -26,7 +26,6 @@ import {
   RefreshControl
 } from 'react-native';
 
-
 import ConcertDatabase from './Database';
 
 import {ListView} from 'realm/react-native';

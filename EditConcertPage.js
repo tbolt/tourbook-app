@@ -29,10 +29,10 @@ import {
   DatePickerIOS
 } from 'react-native';
 
+import ConcertDatabase from './Database';
+
 let ImagePickerManager = require('NativeModules').ImagePickerManager;
 let Icon = require('react-native-vector-icons/FontAwesome');
-
-import ConcertDatabase from './Database';
 
 let cameraIcon = (<Icon name="camera" size={30} color="#900" />);
 let ticketIcon = (<Icon name="rocket" size={30} color="#900" />);

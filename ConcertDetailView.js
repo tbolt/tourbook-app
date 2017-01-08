@@ -10,7 +10,7 @@
   *   You can also rate shows and share them to social networks.
   *
   *   Tyler Bolchoz
-  *   03/05/2016
+  *   01/09/2017
   *
 */}
 
@@ -27,11 +27,10 @@ import {
 
 import ConcertDatabase from './Database';
 
-const { BlurView, VibrancyView } = require('react-native-blur');
+import {BlurView, VibrancyView} from 'react-native-blur';
+import Lightbox from 'react-native-lightbox';
 
-let AddConcertPage = require('./AddConcertPage');
-
-let Lightbox = require('react-native-lightbox');
+import AddConcertPage from './AddConcertPage';
 
 let styles = StyleSheet.create({
   concertDetailContainer: {
@@ -186,7 +185,6 @@ let styles = StyleSheet.create({
   lightBoxPhoto: {
     width: 1000
   }
-
 });
 
 

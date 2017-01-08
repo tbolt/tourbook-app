@@ -30,12 +30,12 @@ import {
   findNodeHandle
 } from 'react-native';
 
+import ConcertDatabase from './Database';
+
 let Platform = require('react-native').Platform;
 let ImagePicker = require('react-native-image-picker');
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import ConcertDatabase from './Database';
 
 let styles = StyleSheet.create({
 
