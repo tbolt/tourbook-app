@@ -30,19 +30,19 @@ import ConcertDatabase from './Database';
 
 import {ListView} from 'realm/react-native';
 
-var Icon = require('react-native-vector-icons/FontAwesome');
+let Icon = require('react-native-vector-icons/FontAwesome');
 
-var EventEmitter = require('wolfy87-eventemitter');
+let EventEmitter = require('wolfy87-eventemitter');
 
-var rightButtonHandler = new EventEmitter();
+let rightButtonHandler = new EventEmitter();
 
-var SearchResults = require('./SearchResults');
-var ConcertDetailView = require('./ConcertDetailView');
-var EditConcertPage = require('./EditConcertPage');
+let SearchResults = require('./SearchResults');
+let ConcertDetailView = require('./ConcertDetailView');
+let EditConcertPage = require('./EditConcertPage');
 
-var Swipeout = require('react-native-swipeout');
+let Swipeout = require('react-native-swipeout');
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -151,7 +151,7 @@ var styles = StyleSheet.create({
 {/* Old Code - Remove Soon
 function urlForQueryAndPage(key, value, pageNumber) {
 
-  var data = {
+  let data = {
       country: 'uk',
       pretty: '1',
       encoding: 'json',
@@ -162,7 +162,7 @@ function urlForQueryAndPage(key, value, pageNumber) {
 
   data[key] = value;
 
-  var querystring = Object.keys(data)
+  let querystring = Object.keys(data)
     .map(key => key + '=' + encodeURIComponent(data[key]))
     .join('&');
 
@@ -269,7 +269,7 @@ onDeletePressed() {
 }
 
 onSearchPressed() {
-  var query = urlForQueryAndPage('place_name', this.state.searchString, 1);
+  let query = urlForQueryAndPage('place_name', this.state.searchString, 1);
   this._executeQuery(query);
 }
 
@@ -283,7 +283,7 @@ rowPressed(artist) {
   let artistIndex = artist;
 
   function indexOfId(array, id) {
-    for (var i=0; i<array.length; i++) {
+    for (let i=0; i<array.length; i++) {
        if (array[i].artist==id) return i;
     }
     console.log("Artist array out of bounds");
@@ -318,7 +318,7 @@ rowPressed(artist) {
 
 renderRow(rowData) {
   // Buttons
-  var swipeoutBtns = [
+  let swipeoutBtns = [
     {
       text: 'Delete',
       backgroundColor: '#FF5050',

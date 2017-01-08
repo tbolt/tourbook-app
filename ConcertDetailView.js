@@ -29,11 +29,11 @@ import ConcertDatabase from './Database';
 
 const { BlurView, VibrancyView } = require('react-native-blur');
 
-var AddConcertPage = require('./AddConcertPage');
+let AddConcertPage = require('./AddConcertPage');
 
-var Lightbox = require('react-native-lightbox');
+let Lightbox = require('react-native-lightbox');
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   concertDetailContainer: {
     flex: 1,
     flexDirection: 'column',
@@ -216,8 +216,8 @@ class ConcertDetailView extends Component {
     alert('woah');
   }
   render() {
-    var concerts= this.props.concerts;
-    var index = this.props.row;
+    let concerts= this.props.concerts;
+    let index = this.props.row;
     console.log(concerts[index].showNotes);
     return (
       <View style={styles.concertDetailContainer}>

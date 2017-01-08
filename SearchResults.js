@@ -26,9 +26,9 @@ import {
 import { ListView } from 'realm/react-native';
 import ConcertDatabase from './Database';
 
-var ConcertDetailView = require('./ConcertDetailView');
+let ConcertDetailView = require('./ConcertDetailView');
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   thumb: {
     width: 80,
     height: 80,
@@ -93,7 +93,7 @@ rowPressed(propertyGuid) {
 
 renderRow(rowData, sectionID, rowID) {
   console.log(rowData);
-  //var index = rowData.map(function(e) { return e.name; }).indexOf('Tyler');
+  //let index = rowData.map(function(e) { return e.name; }).indexOf('Tyler');
   //console.log(index);
 
   let concertDate = rowData.date.toString();

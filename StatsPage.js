@@ -30,21 +30,21 @@ import ConcertDatabase from './Database';
 
 import {ListView} from 'realm/react-native';
 
-var Icon = require('react-native-vector-icons/FontAwesome');
+let Icon = require('react-native-vector-icons/FontAwesome');
 
-var music = (<Icon name="music" size={30} color="#900" />);
+let music = (<Icon name="music" size={30} color="#900" />);
 
-var EventEmitter = require('wolfy87-eventemitter');
+let EventEmitter = require('wolfy87-eventemitter');
 
-var rightButtonHandler = new EventEmitter();
+let rightButtonHandler = new EventEmitter();
 
 import RNChart from 'react-native-chart';
 
-var SearchResults = require('./SearchResults');
-var ConcertDetailView = require('./ConcertDetailView');
-var EditConcertPage = require('./EditConcertPage');
+let SearchResults = require('./SearchResults');
+let ConcertDetailView = require('./ConcertDetailView');
+let EditConcertPage = require('./EditConcertPage');
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',

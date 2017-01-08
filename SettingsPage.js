@@ -30,7 +30,7 @@ import {
 import ConcertDatabase from './Database';
 
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
 container: {
     flex: 1,
     flexDirection: 'column',
@@ -73,7 +73,7 @@ clearDatabase() {
 
 constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
         dataSource: ds.cloneWithRows(['Export', 'Setting 2'])
     };

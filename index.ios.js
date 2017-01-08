@@ -29,7 +29,7 @@ import {
 import ConcertDatabase from './Database';
 
 import Icon from 'react-native-vector-icons/Entypo';
-//
+
 var EventEmitter = require('wolfy87-eventemitter');
 
 var AddConcertPage = require('./AddConcertPage');

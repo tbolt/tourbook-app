@@ -29,15 +29,15 @@ import {
   DatePickerIOS
 } from 'react-native';
 
-var ImagePickerManager = require('NativeModules').ImagePickerManager;
-var Icon = require('react-native-vector-icons/FontAwesome');
+let ImagePickerManager = require('NativeModules').ImagePickerManager;
+let Icon = require('react-native-vector-icons/FontAwesome');
 
 import ConcertDatabase from './Database';
 
-var cameraIcon = (<Icon name="camera" size={30} color="#900" />);
-var ticketIcon = (<Icon name="rocket" size={30} color="#900" />);
+let cameraIcon = (<Icon name="camera" size={30} color="#900" />);
+let ticketIcon = (<Icon name="rocket" size={30} color="#900" />);
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
 
   container: {
     flex: 1,
@@ -186,8 +186,8 @@ constructor(props) {
   this.showConcertImagePicker = this.showConcertImagePicker.bind(this);
   this.showTicketImagePicker = this.showTicketImagePicker.bind(this);
 
-  var concerts= this.props.concerts;
-  var index = this.props.row;
+  let concerts= this.props.concerts;
+  let index = this.props.row;
 
   this.state = {
       spinner: true,
@@ -303,7 +303,7 @@ _toggleTransparent() {
 }
 
 showConcertImagePicker() {
-    var options = {
+    let options = {
       title: '', // specify null or empty string to remove the title
       cancelButtonTitle: 'Cancel',
       takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
@@ -331,14 +331,14 @@ showConcertImagePicker() {
           // Base64 Image (on iOS)
           const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
            //const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-          var selector = "concertPhoto";
+          let selector = "concertPhoto";
           this.onPictureAdd(source, selector);
       }
     });
 }
 
 showTicketImagePicker() {
-    var options = {
+    let options = {
       title: '', // specify null or empty string to remove the title
       cancelButtonTitle: 'Cancel',
       takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
@@ -365,7 +365,7 @@ showTicketImagePicker() {
       else {
           // Base64 Image (on iOS)
           const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-          var selector = "ticketPhoto";
+          let selector = "ticketPhoto";
           this.onPictureAdd(source, selector);
       }
     });
@@ -442,18 +442,18 @@ updateRating(note) {
 
 render() {
 
-    var concerts= this.props.concerts;
-    var index = this.props.row;
+    let concerts= this.props.concerts;
+    let index = this.props.row;
 
     //Update rating
-    var existingRating = concerts[index].rating;
+    let existingRating = concerts[index].rating;
 
 
-    var _scrollView: ScrollView;
+    let _scrollView: ScrollView;
     const CAMERA_ROLL_VIEW = 'camera_roll_view';
 
     /* Note: these need to be updated to handle if there is no photo provided */
-    var cameraIconBox = (this.state.isCameraIconVisible)?
+    let cameraIconBox = (this.state.isCameraIconVisible)?
           <TouchableHighlight
               onPress={this.showConcertImagePicker}
               style={styles.buttonCamera}
@@ -461,7 +461,7 @@ render() {
               <Icon name="camera" style={styles.iconButtons} size={60} color="#808080" />
           </TouchableHighlight> : null;
 
-    var concertPhotoBox = (this.state.isConcertPhotoVisible)?
+    let concertPhotoBox = (this.state.isConcertPhotoVisible)?
           <TouchableHighlight
                   onPress={this.showConcertImagePicker}
                   style={styles.buttonCamera}
@@ -469,7 +469,7 @@ render() {
           <Image style={styles.uploadShowPicture} source={this.state.concertPhoto}/>
           </TouchableHighlight> : null;
 
-    var ticketIconBox = (this.state.isTicketIconVisible)?
+    let ticketIconBox = (this.state.isTicketIconVisible)?
           <TouchableHighlight
               onPress={this.showTicketImagePicker}
               style={styles.buttonTicket}
@@ -477,7 +477,7 @@ render() {
             <Icon name="ticket" style={styles.iconButtons} size={60} color="#808080" />
           </TouchableHighlight> : null;
 
-    var ticketPhotoBox = (this.state.isTicketPhotoVisible)?
+    let ticketPhotoBox = (this.state.isTicketPhotoVisible)?
           <TouchableHighlight
                   onPress={this.showTicketImagePicker}
                   style={styles.buttonCamera}
@@ -485,7 +485,7 @@ render() {
           <Image style={styles.uploadShowPicture} source={this.state.ticketPhoto} />
           </TouchableHighlight> : null;
 
-    var dateInputBox = (this.state.isDatePickerVisible)?
+    let dateInputBox = (this.state.isDatePickerVisible)?
           <View style={styles.dateView}>
             <DatePickerIOS
             style={styles.datePickerView}
@@ -494,7 +494,7 @@ render() {
             onDateChange={this.onDateChange.bind(this)} />
           </View> : null;
 
-    var activitySpinner = (this.state.isActivitySpinnerVisible)?
+    let activitySpinner = (this.state.isActivitySpinnerVisible)?
           <ActivityIndicatorIOS
           animating={this.state.spinner}
           style={[styles.spinner]}

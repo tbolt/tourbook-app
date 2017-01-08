@@ -30,14 +30,14 @@ import {
   findNodeHandle
 } from 'react-native';
 
-var Platform = require('react-native').Platform;
-var ImagePicker = require('react-native-image-picker');
+let Platform = require('react-native').Platform;
+let ImagePicker = require('react-native-image-picker');
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ConcertDatabase from './Database';
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
 
   container: {
     flex: 1,
@@ -309,7 +309,7 @@ _toggleTransparent() {
 
 showConcertImagePicker() {
 
-    var options = {
+    let options = {
       title: '', // specify null or empty string to remove the title
       cancelButtonTitle: 'Cancel',
       takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
@@ -337,14 +337,14 @@ showConcertImagePicker() {
           // Base64 Image (on iOS)
           const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
            //const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-          var selector = "concertPhoto";
+          let selector = "concertPhoto";
           this.onPictureAdd(source, selector);
       }
     });
 }
 
 showTicketImagePicker() {
-    var options = {
+    let options = {
       title: '', // specify null or empty string to remove the title
       cancelButtonTitle: 'Cancel',
       takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
@@ -371,7 +371,7 @@ showTicketImagePicker() {
       else {
           // Base64 Image (on iOS)
           const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-          var selector = "ticketPhoto";
+          let selector = "ticketPhoto";
           this.onPictureAdd(source, selector);
       }
     });
@@ -466,7 +466,7 @@ render() {
 
     const CAMERA_ROLL_VIEW = 'camera_roll_view';
 
-    var cameraIconBox = (this.state.isCameraIconVisible)?
+    let cameraIconBox = (this.state.isCameraIconVisible)?
           <TouchableHighlight
               onPress={this.showConcertImagePicker}
               style={styles.buttonCamera}
@@ -474,7 +474,7 @@ render() {
               <Icon name="camera" style={styles.iconButtons} size={60} color="#808080" />
           </TouchableHighlight> : null;
 
-    var concertPhotoBox = (this.state.isConcertPhotoVisible)?
+    let concertPhotoBox = (this.state.isConcertPhotoVisible)?
           <TouchableHighlight
                   onPress={this.showConcertImagePicker}
                   style={styles.buttonCamera}
@@ -482,7 +482,7 @@ render() {
           <Image style={styles.uploadShowPicture} source={this.state.concertPhoto} />
           </TouchableHighlight> : null;
 
-    var ticketIconBox = (this.state.isTicketIconVisible)?
+    let ticketIconBox = (this.state.isTicketIconVisible)?
           <TouchableHighlight
               onPress={this.showTicketImagePicker}
               style={styles.buttonTicket}
@@ -490,7 +490,7 @@ render() {
             <Icon name="ticket" style={styles.iconButtons} size={60} color="#808080" />
           </TouchableHighlight> : null;
 
-    var ticketPhotoBox = (this.state.isTicketPhotoVisible)?
+    let ticketPhotoBox = (this.state.isTicketPhotoVisible)?
           <TouchableHighlight
                   onPress={this.showTicketImagePicker}
                   style={styles.buttonCamera}
@@ -498,7 +498,7 @@ render() {
           <Image style={styles.uploadShowPicture} source={this.state.ticketPhoto} />
           </TouchableHighlight> : null;
 
-    var dateInputBox = (this.state.isDatePickerVisible)?
+    let dateInputBox = (this.state.isDatePickerVisible)?
           <View>
             <DatePickerIOS
 
@@ -507,7 +507,7 @@ render() {
             onDateChange={this.onDateChange.bind(this)} />
           </View> : null;
 
-    var activitySpinner = (this.state.isActivitySpinnerVisible)?
+    let activitySpinner = (this.state.isActivitySpinnerVisible)?
           <ActivityIndicatorIOS
           animating={this.state.spinner}
           style={[styles.spinner]}
