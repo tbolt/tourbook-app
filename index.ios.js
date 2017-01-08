@@ -30,15 +30,15 @@ import ConcertDatabase from './Database';
 
 import Icon from 'react-native-vector-icons/Entypo';
 
-var EventEmitter = require('wolfy87-eventemitter');
+let EventEmitter = require('wolfy87-eventemitter');
 
-var AddConcertPage = require('./AddConcertPage');
-var ConcertDirectory = require('./ConcertDirectory');
-var FavoritesPage = require('./FavoritesPage');
-var SettingsPage = require('./SettingsPage');
-var StatsPage = require('./StatsPage');
+let AddConcertPage = require('./AddConcertPage');
+let ConcertDirectory = require('./ConcertDirectory');
+let FavoritesPage = require('./FavoritesPage');
+let SettingsPage = require('./SettingsPage');
+let StatsPage = require('./StatsPage');
 
-var rightButtonHandler = new EventEmitter();
+let rightButtonHandler = new EventEmitter();
 
 export default class tourbooknew extends Component {
 
