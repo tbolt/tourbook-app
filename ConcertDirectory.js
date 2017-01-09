@@ -204,14 +204,6 @@ class ConcertDirectory extends Component {
     this.setState({refreshing: false});
   }
 
-  onDeletePressed() {
-    alert('delete func called');
-    /* Grab concert by guid and remove it from db */
-
-    /* Refresh listview db */
-
-  }
-
   onSearchPressed() {
     let query = urlForQueryAndPage('place_name', this.state.searchString, 1);
     this._executeQuery(query);
@@ -268,16 +260,14 @@ class ConcertDirectory extends Component {
         text: 'Delete',
         backgroundColor: '#FF5050',
         underlayColor: '#282828',
-        autoClose: 'yes',
+        autoClose: 'true',
         onPress: function(){
           ConcertDatabase.write(() => {
             let allConcerts = ConcertDatabase.objects('Concert');
             let stringyFilter = "guid == \""+rowData.guid+"\"";
             let selectedConcert = allConcerts.filtered(stringyFilter);
             ConcertDatabase.delete(selectedConcert);
-            // Update list view
           });
-          //this.refreshListView();
         }
       }
     ]

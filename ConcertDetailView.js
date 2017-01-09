@@ -192,7 +192,8 @@ class ConcertDetailView extends Component {
     this.state = {
       animated: true,
       modalVisible: false,
-      transparent: false
+      transparent: false,
+      isNotesVisible: true
     };
   }
   componentWillMount() {
@@ -214,6 +215,19 @@ class ConcertDetailView extends Component {
   render() {
     let concerts= this.props.concerts;
     let index = this.props.row;
+
+    if(concerts[index].showNotes == '') {
+      this.state.isNotesVisible = false
+    } else {
+      this.state.isNotesVisible = true
+    }
+
+    let notes = (this.state.isNotesVisible)?
+        <View style={styles.concertNotesWrapper}>
+          <Text style={styles.concertNotesHeaderText}>Notes</Text>
+          <Text style={styles.concertDetailShowNotes}>{concerts[index].showNotes}</Text>
+        </View> : null;
+
     console.log(concerts[index].showNotes);
     return (
       <View style={styles.concertDetailContainer}>
@@ -238,10 +252,7 @@ class ConcertDetailView extends Component {
           <Text style={styles.concertDetailLocation}>{concerts[index].location}</Text>
           <Text style={styles.concertDetailDate}>{concerts[index].date}</Text>
         </View>
-        <View style={styles.concertNotesWrapper}>
-          <Text style={styles.concertNotesHeaderText}>Notes</Text>
-          <Text style={styles.concertDetailShowNotes}>{concerts[index].showNotes}</Text>
-        </View>
+        {notes}
         {/* Hold off on the modal for now
         <Modal
           animated={this.state.animated}

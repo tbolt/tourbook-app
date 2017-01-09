@@ -406,7 +406,6 @@ onNotesTextChanged(event) {
   this.setState({ showNotes: event.nativeEvent.text });
   console.log(this.state.showNotes);
 }
-
 updateSliderRating(val) {
   let sliderValue = val;
   this.setState({concertRatingSlider: sliderValue});
@@ -527,6 +526,7 @@ render() {
         <View style={styles.detailInput}>
           <View style={styles.textInputFields}>
           <TextInput
+                autoFocus={true}
                 style={styles.artistInput}
                 placeholderTextColor={'#808080'}
                 value={this.state.artistString}
@@ -601,8 +601,8 @@ render() {
             */}
           </View>
           <View style={styles.lastTextInputField}>
-           <TextInput
-              autoFocus = {true}
+            <TextInput
+              autoFocus = {false}
               editable = {true}
               maxLength = {40}
               style={styles.notesInput}
