@@ -118,7 +118,6 @@ let styles = StyleSheet.create({
     flex: 0,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    color: '#50E3C2',
     width: 85,
     height: 85,
     backgroundColor: '#333333',
@@ -176,7 +175,6 @@ let styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 35,
     paddingTop: 20,
-    color: '#ffffff'
   },
   concertDetailShowNotes: {
     marginTop: 20,
@@ -231,7 +229,7 @@ class ConcertDetailView extends Component {
           <View style={styles.concertDetailRatingWrapper}>
           <Text style={styles.concertDetailRating}>{concerts[index].rating}</Text>
           </View>
-          <Lightbox activeProps={this.state.transparent}>
+          <Lightbox>
             <Image style={styles.concertDetailTicketImage} source={{uri: concerts[index].ticketPhoto}}></Image>
           </Lightbox>
         </View>

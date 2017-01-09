@@ -31,14 +31,12 @@ import {
 } from 'react-native';
 
 import ConcertDatabase from './Database';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 let Platform = require('react-native').Platform;
 let ImagePicker = require('react-native-image-picker');
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-
 let styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#333'
@@ -233,7 +231,6 @@ createGuid() {
 }
 
 saveConcert() {
-
   //Reminder of what a breakthrough this was...
   alert('Concert Added');
 

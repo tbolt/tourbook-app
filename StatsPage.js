@@ -28,39 +28,18 @@ import {
 
 import ConcertDatabase from './Database';
 
-import {ListView} from 'realm/react-native';
-
-let Icon = require('react-native-vector-icons/FontAwesome');
-
-let music = (<Icon name="music" size={30} color="#900" />);
-
-let EventEmitter = require('wolfy87-eventemitter');
-
-let rightButtonHandler = new EventEmitter();
-
-import RNChart from 'react-native-chart';
-
-let SearchResults = require('./SearchResults');
-let ConcertDetailView = require('./ConcertDetailView');
-let EditConcertPage = require('./EditConcertPage');
-
 let styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#333',
-    paddingTop: 15,
-    marginTop: 0,
+    backgroundColor: '#333333',
+    paddingTop: 15
   },
   lastShowNumber: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
-    marginLeft: 30,
-    marginBottom: 20,
     fontSize: 100,
-    color: '#fff'
+    color: '#ffffff'
   },
   lastShowText: {
     flex: 1,
@@ -72,66 +51,43 @@ let styles = StyleSheet.create({
   showHistoryText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#ffffff',
     marginLeft: 30
   },
-  placeholderMusicNote: {
-    width: 200,
-    height: 100
-  },
   pastYearGraph: {
-    height: 150
+    flex: 1
   },
   topArtistGraph: {
-    height: 150
-  },
-  chartLineGraph: {
-    flex: 1,
-    position: 'absolute',
-    marginLeft: 15,
-    marginRight: 15,
-    top: 16,
-    left: 4,
-    bottom: 4,
-    right: 16
-  },
-  chartBarGraph: {
-    position: 'absolute',
-    marginLeft: 15,
-    marginRight: 15,
-    top: 16,
-    left: 4,
-    bottom: 4,
-    right: 16
+    flex: 1
   }
-
 });
 
 const chartDataHistory = [
-    {
-        name: 'LineChart',
-        color: 'teal',
-        lineWidth: 6,
-        highlightIndices: [0,1,2,3,4,5,6,7,8,9,10,11],   // The data points at indexes 1 and 2 will be orange
-        highlightColor: 'white',
-        showDataPoint: true,
-        dataPointRadius: 3.0,
-        data: [3, 6, 2, 2, 1, 2, 4, 8, 12, 10, 3, 2],
-    }
+  {
+    name: 'LineChart',
+    color: 'teal',
+    type: "line",
+    lineWidth: 6,
+    highlightIndices: [0,1,2,3,4,5,6,7,8,9,10,11],   // The data points at indexes 1 and 2 will be orange
+    highlightColor: 'white',
+    showDataPoint: true,
+    dataPointRadius: 3.0,
+    data: [3, 6, 2, 2, 1, 2, 4, 8, 12, 10, 3, 2],
+  }
 ];
 
 const chartDataArtistRank = [
-    {
-        name: 'BarChart',
-        type: 'bar',
-        color: 'teal',
-        lineWidth: 6,
-        highlightIndices: [0,1,2,3,4,5,6,7,8,9,10,11],   // The data points at indexes 1 and 2 will be orange
-        highlightColor: 'white',
-        showDataPoint: true,
-        dataPointRadius: 3.0,
-        data: [3, 6, 2, 2, 1, 2, 4, 8, 12, 10, 3, 2],
-    }
+  {
+    name: 'BarChart',
+    type: "bar",
+    color: 'teal',
+    lineWidth: 6,
+    highlightIndices: [0,1,2,3,4,5,6,7,8,9,10,11],   // The data points at indexes 1 and 2 will be orange
+    highlightColor: 'white',
+    showDataPoint: true,
+    dataPointRadius: 3.0,
+    data: [3, 6, 2, 2, 1, 2, 4, 8, 12, 10, 3, 2]
+  }
 ];
 
 const xLabels = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
@@ -158,37 +114,15 @@ componentWillReceiveProps() {
 
 }
 
-
-
 render() {
-
-  let spinner = this.state.isLoading ?
-    ( <ActivityIndicatorIOS
-        hidden='true'
-        size='large'/> ) :
-    ( <View/>);
-
   return (
     <View style={styles.container}>
-      <View style={styles.placeholderTextWrapper}>
-          {/*<Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('image!musicnote')} /> */}
-          <Text style={styles.lastShowNumber}>8<Text style={styles.lastShowText}>days since your last concert</Text></Text>
-      </View>
+      <Text style={styles.lastShowNumber}>8<Text style={styles.lastShowText}>days since your last concert</Text></Text>
       <Text style={styles.showHistoryText}>Past Year</Text>
       <View style={styles.pastYearGraph}>
-          <RNChart style={styles.chartLineGraph}
-              chartData={chartDataHistory}
-              verticalGridStep={5}
-              xLabels={xLabels}
-           />
       </View>
       <View style={styles.topArtistGraph}>
       <Text style={styles.showHistoryText}>Top Artists</Text>
-          <RNChart style={styles.chartBarGraph}
-              chartData={chartDataArtistRank}
-              verticalGridStep={5}
-              xLabels={artistLabels}
-           />
       </View>
     </View>
   );

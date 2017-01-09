@@ -38,7 +38,6 @@ let cameraIcon = (<Icon name="camera" size={30} color="#900" />);
 let ticketIcon = (<Icon name="rocket" size={30} color="#900" />);
 
 let styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#333'
