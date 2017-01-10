@@ -114,9 +114,17 @@ componentWillReceiveProps() {
 
 }
 
+calculateLastShowDate() {
+  let dates = ConcertDatabase.objects('Concert').filtered('date');
+  console.log(dates[0]);
+}
+
 render() {
   return (
     <View style={styles.container}>
+      <TouchableHighlight onPress={this.calculateLastShowDate}>
+      <Text>show db output</Text>
+      </TouchableHighlight>
       <Text style={styles.lastShowNumber}>8<Text style={styles.lastShowText}>days since your last concert</Text></Text>
       <Text style={styles.showHistoryText}>Past Year</Text>
       <View style={styles.pastYearGraph}>

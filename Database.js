@@ -19,20 +19,20 @@ const Realm = require('realm');
 class Concert {}
 
 Concert.schema = {
-    name: 'Concert',
-    primaryKey: 'guid',
-    properties: {
-        guid: 'string', // primary key
-        name: 'string',
-        artist: 'string',
-        venue: 'string',
-        location: 'string',
-        date: {type: 'string'},
-        rating: {type: 'int', default: 0},
-        showNotes: 'string',
-        concertPhoto: 'string',
-        ticketPhoto: 'string',
-    }
+  name: 'Concert',
+  primaryKey: 'guid',
+  properties: {
+    guid: 'string', // primary key
+    name: 'string',
+    artist: 'string',
+    venue: 'string',
+    location: 'string',
+    date: {type: 'string'},
+    rating: {type: 'int', default: 0},
+    showNotes: 'string',
+    concertPhoto: 'string',
+    ticketPhoto: 'string'
+  }
 };
 
 export default new Realm({schema: [Concert], schemaVersion: 1});
