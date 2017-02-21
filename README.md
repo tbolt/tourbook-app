@@ -2,7 +2,21 @@
 
 Tourbook is an iOS Application for logging, rating, and sharing concerts you attend. Forget ticket stubs, start logging your favorite concerts digitally.
 
-## Requirements
+## Dependencies
 
-Use these instructions to run the development build of the application.
+* React Native
+* Realm.io
 
+## Getting Started
+
+Use these steps to build and run locally
+
+After cloning the repo, checkout out the develop branch and set up your environment:
+
+```npm install```
+
+Once all modules are installed, you can now launch the application
+
+```react-native run-ios```
+
+This will launch the iOS Simulator with the development build of Tourbook.
