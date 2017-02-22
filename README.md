@@ -7,7 +7,7 @@ Tourbook is an iOS Application for logging, rating, and sharing concerts you att
 * React Native
 * Realm.io
 
-## Getting Started
+## Installation
 
 Use these steps to build and run locally
 
