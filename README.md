@@ -15,6 +15,7 @@ After cloning the repo, checkout out the develop branch and set up your environm
 
 npm install dependencies
  ```npm install```
+ 
 react native package manager link dependencies
 ```rnpm link``` may need ```sudo```
 
