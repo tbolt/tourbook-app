@@ -13,9 +13,12 @@ Use these steps to build and run locally
 
 After cloning the repo, checkout out the develop branch and set up your environment:
 
-```npm install```
+npm install dependencies
+ ```npm install```
+react native package manager link dependencies
+```rnpm link``` may need ```sudo```
 
-Once all modules are installed, you can now launch the application
+Once all modules are installed and linked, you can now launch the application
 
 ```react-native run-ios```
 
