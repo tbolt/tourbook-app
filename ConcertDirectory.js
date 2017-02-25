@@ -34,7 +34,7 @@ import EventEmitter from 'wolfy87-eventemitter';
 
 import ConcertDetailView from './ConcertDetailView';
 import EditConcertPage from './EditConcertPage';
-import Swipeout from 'react-native-swipeout';
+import Swipeout from 'react-native-swipe-out';
 
 let rightButtonHandler = new EventEmitter()
 
