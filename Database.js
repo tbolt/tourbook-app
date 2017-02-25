@@ -35,4 +35,4 @@ Concert.schema = {
   }
 };
 
-export default new Realm({schema: [Concert], schemaVersion: 1});
+export default new Realm({schema: [Concert], schemaVersion: 400});
