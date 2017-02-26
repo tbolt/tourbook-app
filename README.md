@@ -9,15 +9,13 @@ Tourbook is an iOS Application for logging, rating, and sharing concerts you att
 
 ## Installation
 
-Use these steps to build and run locally
-
 After cloning the repo, checkout out the develop branch and do the following build steps
 
 ```npm install```
 
 ```react-native link```
 
-Once all modules are installed and linked, you can now launch the application
+Once all modules are installed and linked, launch the application
 
 ```react-native run-ios```
 
