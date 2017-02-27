@@ -26,6 +26,7 @@ import {
   RefreshControl
 } from 'react-native';
 
+import Chart from 'react-native-chart';
 import ConcertDatabase from './Database';
 
 let styles = StyleSheet.create({
@@ -59,7 +60,26 @@ let styles = StyleSheet.create({
   },
   topArtistGraph: {
     flex: 1
-  }
+  },
+  chartLineGraph: {
+  flex: 1,
+  position: 'absolute',
+  marginLeft: 15,
+  marginRight: 15,
+  top: 16,
+  left: 4,
+  bottom: 4,
+  right: 16
+},
+chartBarGraph: {
+  position: 'absolute',
+  marginLeft: 15,
+  marginRight: 15,
+  top: 16,
+  left: 4,
+  bottom: 4,
+  right: 16
+}
 });
 
 const chartDataHistory = [
@@ -126,11 +146,20 @@ render() {
       <Text>show db output</Text>
       </TouchableHighlight>
       <Text style={styles.lastShowNumber}>8<Text style={styles.lastShowText}>days since your last concert</Text></Text>
-      <Text style={styles.showHistoryText}>Past Year</Text>
       <View style={styles.pastYearGraph}>
+        <Chart style={styles.chartLineGraph}
+            chartData={chartDataHistory}
+            verticalGridStep={5}
+            xLabels={xLabels}
+         />
       </View>
       <View style={styles.topArtistGraph}>
       <Text style={styles.showHistoryText}>Top Artists</Text>
+        <Chart style={styles.chartBarGraph}
+            chartData={chartDataArtistRank}
+            verticalGridStep={5}
+            xLabels={artistLabels}
+         />
       </View>
     </View>
   );
