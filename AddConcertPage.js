@@ -201,11 +201,11 @@ constructor(props) {
       isTicketPhotoVisible: false,
       isDatePickerVisible: false,
       isActivitySpinnerVisible: false,
-      noteOne: require('image!musicnote'),
-      noteTwo: require('image!musicnote'),
-      noteThree: require('image!musicnote'),
-      noteFour: require('image!musicnote'),
-      noteFive: require('image!musicnote'),
+      noteOne: require('./images/musicnote.png'),
+      noteTwo: require('./images/musicnote.png'),
+      noteThree: require('./images/musicnote.png'),
+      noteFour: require('./images/musicnote.png'),
+      noteFive: require('./images/musicnote.png'),
       artist: '',
       venue: '',
       location: '',
@@ -414,46 +414,46 @@ updateRating(note) {
   console.log('updateRating running...');
    if(note == 'zeroNote') {
     this.setState({concertRating: 0});
-    this.setState({noteOne: require('image!musicnote')});
-    this.setState({noteTwo: require('image!musicnote')});
-    this.setState({noteThree: require('image!musicnote')});
-    this.setState({noteFour: require('image!musicnote')});
-    this.setState({noteFive: require('image!musicnote')});
+    this.setState({noteOne: require('./images/musicnote.png')});
+    this.setState({noteTwo: require('./images/musicnote.png')});
+    this.setState({noteThree: require('./images/musicnote.png')});
+    this.setState({noteFour: require('./images/musicnote.png')});
+    this.setState({noteFive: require('./images/musicnote.png')});
    } else if(note == 'oneNote') {
     this.setState({concertRating: 1});
-    this.setState({noteOne: require('image!musicnoteSelected')});
-    this.setState({noteTwo: require('image!musicnote')});
-    this.setState({noteThree: require('image!musicnote')});
-    this.setState({noteFour: require('image!musicnote')});
-    this.setState({noteFive: require('image!musicnote')});
+    this.setState({noteOne: require('./images/musicnoteSelected.png')});
+    this.setState({noteTwo: require('./images/musicnote.png')});
+    this.setState({noteThree: require('./images/musicnote.png')});
+    this.setState({noteFour: require('./images/musicnote.png')});
+    this.setState({noteFive: require('./images/musicnote.png')});
    } else if (note == 'twoNote') {
     this.setState({concertRating: 2});
-    this.setState({noteOne: require('image!musicnoteSelected')});
-    this.setState({noteTwo: require('image!musicnoteSelected')});
-    this.setState({noteThree: require('image!musicnote')});
-    this.setState({noteFour: require('image!musicnote')});
-    this.setState({noteFive: require('image!musicnote')});
+    this.setState({noteOne: require('./images/musicnoteSelected.png')});
+    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
+    this.setState({noteThree: require('./images/musicnote.png')});
+    this.setState({noteFour: require('./images/musicnote.png')});
+    this.setState({noteFive: require('./images/musicnote.png')});
    } else if (note == 'threeNote') {
     this.setState({concertRating: 3});
-    this.setState({noteOne: require('image!musicnoteSelected')});
-    this.setState({noteTwo: require('image!musicnoteSelected')});
-    this.setState({noteThree: require('image!musicnoteSelected')});
-    this.setState({noteFour: require('image!musicnote')});
-    this.setState({noteFive: require('image!musicnote')});
+    this.setState({noteOne: require('./images/musicnoteSelected.png')});
+    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
+    this.setState({noteThree: require('./images/musicnoteSelected.png')});
+    this.setState({noteFour: require('./images/musicnote.png')});
+    this.setState({noteFive: require('./images/musicnote.png')});
    } else if (note == 'fourNote') {
     this.setState({concertRating: 4});
-    this.setState({noteOne: require('image!musicnoteSelected')});
-    this.setState({noteTwo: require('image!musicnoteSelected')});
-    this.setState({noteThree: require('image!musicnoteSelected')});
-    this.setState({noteFour: require('image!musicnoteSelected')});
-    this.setState({noteFive: require('image!musicnote')});
+    this.setState({noteOne: require('./images/musicnoteSelected.png')});
+    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
+    this.setState({noteThree: require('./images/musicnoteSelected.png')});
+    this.setState({noteFour: require('./images/musicnoteSelected.png')});
+    this.setState({noteFive: require('./images/musicnote.png')});
    } else if (note == 'fiveNote') {
     this.setState({concertRating: 5});
-    this.setState({noteOne: require('image!musicnoteSelected')});
-    this.setState({noteTwo: require('image!musicnoteSelected')});
-    this.setState({noteThree: require('image!musicnoteSelected')});
-    this.setState({noteFour: require('image!musicnoteSelected')});
-    this.setState({noteFive: require('image!musicnoteSelected')});
+    this.setState({noteOne: require('./images/musicnoteSelected.png')});
+    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
+    this.setState({noteThree: require('./images/musicnoteSelected.png')});
+    this.setState({noteFour: require('./images/musicnoteSelected.png')});
+    this.setState({noteFive: require('./images/musicnoteSelected.png')});
    }
    console.log(this.state.concertRating);
 }

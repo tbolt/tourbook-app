@@ -34,7 +34,7 @@ import EventEmitter from 'wolfy87-eventemitter';
 
 import ConcertDetailView from './ConcertDetailView';
 import EditConcertPage from './EditConcertPage';
-import Swipeout from 'react-native-swipeout';
+import Swipeout from 'react-native-swipe-out';
 
 let rightButtonHandler = new EventEmitter()
 
@@ -301,7 +301,7 @@ class ConcertDirectory extends Component {
 
     let placeholderText = (!this.state.hasConcerts)?
         <View style={styles.placeholderTextWrapper}>
-          <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('image!musicnote')} />
+          <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('./images/musicnote.png')} />
           <Text style={styles.placeholderText}>
             No Concerts Added Yet
           </Text>
