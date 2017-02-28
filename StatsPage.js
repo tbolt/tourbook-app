@@ -55,22 +55,6 @@ let styles = StyleSheet.create({
     color: '#ffffff',
     marginLeft: 30
   },
-  pastYearGraph: {
-    flex: 1
-  },
-  topArtistGraph: {
-    flex: 1
-  },
-  chartLineGraph: {
-  flex: 1,
-  position: 'absolute',
-  marginLeft: 15,
-  marginRight: 15,
-  top: 16,
-  left: 4,
-  bottom: 4,
-  right: 16
-},
 chartBarGraph: {
   position: 'absolute',
   marginLeft: 15,
@@ -79,6 +63,9 @@ chartBarGraph: {
   left: 4,
   bottom: 4,
   right: 16
+},
+chart: {
+
 }
 });
 
@@ -109,6 +96,13 @@ const chartDataArtistRank = [
     data: [3, 6, 2, 2, 1, 2, 4, 8, 12, 10, 3, 2]
   }
 ];
+
+const data = [[
+    [0, 1],
+    [1, 3],
+    [3, 7],
+    [4, 9],
+]];
 
 const xLabels = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
 
@@ -146,6 +140,14 @@ render() {
       <Text>show db output</Text>
       </TouchableHighlight>
       <Text style={styles.lastShowNumber}>8<Text style={styles.lastShowText}>days since your last concert</Text></Text>
+      <Chart
+          style={styles.chart}
+          data={data}
+          verticalGridStep={5}
+          type="line"
+          showDataPoint={true}
+          color={['#e1cd00']}
+       />
       <View style={styles.pastYearGraph}>
         <Chart style={styles.chartLineGraph}
             chartData={chartDataHistory}
