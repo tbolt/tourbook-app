@@ -158,18 +158,6 @@ let styles = StyleSheet.create({
   uploadShowPicture: {
     width: 200,
     height: 100
-  },
-  musicNotes: {
-    width: 45,
-    height: 60
-  },
-  ratingMusicNotes:{
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10
   }
 });
 
@@ -177,7 +165,6 @@ class EditConcertPage extends Component {
 
 componentDidMount() {
   this.props.events.addListener('editSaveButtonPressed', this.saveConcert.bind(this));
-  this.updateRating(this.props.concerts[this.props.row].rating);
 }
 
 constructor(props) {
@@ -197,11 +184,6 @@ constructor(props) {
       isTicketPhotoVisible: true,
       isDatePickerVisible: false,
       isActivitySpinnerVisible: false,
-      noteOne: require('./images/musicnote.png'),
-      noteTwo: require('./images/musicnote.png'),
-      noteThree: require('./images/musicnote.png'),
-      noteFour: require('./images/musicnote.png'),
-      noteFive: require('./images/musicnote.png'),
       guid: concerts[index].guid,
       artist: concerts[index].artist,
       venue: concerts[index].venue,
@@ -228,17 +210,14 @@ createGuid() {
 }
 
 saveConcert() {
-
-  //Reminder of what a breakthrough this was...
-  alert('fuck yea...save the edited concert called');
+  alert('save edited concert called');
 
   // Check to see if input fields are empty
   if(this.state.artist == '' && this.state.venue == '' && this.state.location == '' && this.state.concertRatingSlider == 0 && this.state.concertPhoto == null && this.state.ticketPhoto == null && this.state.showNotes == ''){
     alert('Nothing To Save...');
   } else {
     // Write to datebase
-
-     ConcertDatabase.write(() => {
+    ConcertDatabase.write(() => {
       ConcertDatabase.create('Concert',
         {guid: this.state.guid, // primary key
         name: this.state.artist,
@@ -391,54 +370,6 @@ onNotesTextChanged(event) {
   console.log(this.state.showNotes);
 }
 
-updateRating(note) {
-  console.log('updateRating running...');
-   if(note == 'zeroNote') {
-    this.setState({concertRating: 0});
-    this.setState({noteOne: require('./images/musicnote.png')});
-    this.setState({noteTwo: require('./images/musicnote.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if(note == 'oneNote') {
-    this.setState({concertRating: 1});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnote.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'twoNote') {
-    this.setState({concertRating: 2});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'threeNote') {
-    this.setState({concertRating: 3});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'fourNote') {
-    this.setState({concertRating: 4});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnoteSelected.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'fiveNote') {
-    this.setState({concertRating: 5});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnoteSelected.png')});
-    this.setState({noteFive: require('./images/musicnoteSelected.png')});
-   }
-   console.log(this.state.concertRating);
-}
-
 render() {
 
     let concerts= this.props.concerts;
@@ -446,7 +377,6 @@ render() {
 
     //Update rating
     let existingRating = concerts[index].rating;
-
 
     let _scrollView: ScrollView;
     const CAMERA_ROLL_VIEW = 'camera_roll_view';
@@ -553,38 +483,6 @@ render() {
           <View style={styles.textInputFields}>
             <Text style={styles.ratingInput}>Rating  <Text style={styles.sliderInputText} >{this.state.concertRatingSlider}</Text></Text>
             <Slider style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
-            {/* Old rating system
-            <Text style={styles.ratingInput} >Rating</Text>
-            <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(0) }} >
-            <View style={styles.ratingMusicNotes}>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(1) }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteOne} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(2) }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteTwo} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(3) }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteThree} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(4) }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteFour} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating(5) }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteFive} />
-                </View>
-              </TouchableHighlight>
-            </View>
-            </TouchableHighlight>
-          */}
           </View>
           <View style={styles.lastTextInputField}>
            <TextInput

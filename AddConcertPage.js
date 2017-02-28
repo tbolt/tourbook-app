@@ -161,24 +161,12 @@ let styles = StyleSheet.create({
     width: 200,
     height: 100
   },
-  musicNotes: {
-    width: 45,
-    height: 60
-  },
   sliderInput: {
     height: 40
   },
   sliderInputText: {
     fontSize: 22,
     color: '#FFFFFF'
-  },
-  ratingMusicNotes:{
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10
   }
 });
 
@@ -201,11 +189,6 @@ constructor(props) {
       isTicketPhotoVisible: false,
       isDatePickerVisible: false,
       isActivitySpinnerVisible: false,
-      noteOne: require('./images/musicnote.png'),
-      noteTwo: require('./images/musicnote.png'),
-      noteThree: require('./images/musicnote.png'),
-      noteFour: require('./images/musicnote.png'),
-      noteFive: require('./images/musicnote.png'),
       artist: '',
       venue: '',
       location: '',
@@ -410,53 +393,6 @@ updateSliderRating(val) {
   let sliderValue = val;
   this.setState({concertRatingSlider: sliderValue});
 }
-updateRating(note) {
-  console.log('updateRating running...');
-   if(note == 'zeroNote') {
-    this.setState({concertRating: 0});
-    this.setState({noteOne: require('./images/musicnote.png')});
-    this.setState({noteTwo: require('./images/musicnote.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if(note == 'oneNote') {
-    this.setState({concertRating: 1});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnote.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'twoNote') {
-    this.setState({concertRating: 2});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnote.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'threeNote') {
-    this.setState({concertRating: 3});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnote.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'fourNote') {
-    this.setState({concertRating: 4});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnoteSelected.png')});
-    this.setState({noteFive: require('./images/musicnote.png')});
-   } else if (note == 'fiveNote') {
-    this.setState({concertRating: 5});
-    this.setState({noteOne: require('./images/musicnoteSelected.png')});
-    this.setState({noteTwo: require('./images/musicnoteSelected.png')});
-    this.setState({noteThree: require('./images/musicnoteSelected.png')});
-    this.setState({noteFour: require('./images/musicnoteSelected.png')});
-    this.setState({noteFive: require('./images/musicnoteSelected.png')});
-   }
-   console.log(this.state.concertRating);
-}
 
 render() {
 
@@ -567,39 +503,8 @@ render() {
           <View style={styles.textInputFields}>
             <Text style={styles.ratingInput}>Rating  <Text style={styles.sliderInputText} >{this.state.concertRatingSlider}</Text></Text>
             <Slider style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
-
-          {/* Old rating system
-            <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('zeroNote') }} >
-            <View style={styles.ratingMusicNotes}>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('oneNote') }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteOne} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('twoNote') }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteTwo} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('threeNote') }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteThree} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('fourNote') }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteFour} />
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor={'#333333'} style={styles.musicNotesHighlight} onPress={() => { this.updateRating('fiveNote') }} >
-                <View style={styles.musicNoteWrapper}>
-                  <Image style={styles.musicNotes} source={this.state.noteFive} />
-                </View>
-              </TouchableHighlight>
-            </View>
-            </TouchableHighlight>
-            */}
           </View>
+
           <View style={styles.lastTextInputField}>
             <TextInput
               autoFocus = {false}
