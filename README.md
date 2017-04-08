@@ -22,3 +22,5 @@ Once all modules are installed and linked, launch the application
 This will launch the iOS Simulator with the development build of Tourbook.
 
 Alternatively you can navigate to ```tourbook-app/ios/tourbooknew.xcodeproject``` and launch it with Xcode.
+
+
