@@ -1,5 +1,6 @@
 {
   "name": "tourbookapp",
+  "description": "react native application for logging and rating concerts",
   "version": "0.0.1",
   "private": true,
   "scripts": {
