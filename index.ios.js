@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 });
 
 export default class tourbooknew extends Component {
-
   state = {
     selectedTab: 'firstTab',
   };

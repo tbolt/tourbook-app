@@ -13,7 +13,6 @@
   *   12/28/2016
   *
 */}
-
 const Realm = require('realm');
 
 class Concert {}
