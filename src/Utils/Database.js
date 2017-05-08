@@ -14,9 +14,7 @@
   *
 */}
 const Realm = require('realm');
-
 class Concert {}
-
 Concert.schema = {
   name: 'Concert',
   primaryKey: 'guid',

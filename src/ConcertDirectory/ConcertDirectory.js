@@ -16,7 +16,6 @@
 
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   StatusBar,
   Text,
   TextInput,
@@ -28,122 +27,16 @@ import {
 } from 'react-native';
 import {ListView} from 'realm/react-native';
 
-import ConcertDatabase from './Database';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EventEmitter from 'wolfy87-eventemitter';
-
-import ConcertDetailView from './ConcertDetailView';
-import EditConcertPage from './EditConcertPage';
 import Swipeout from 'react-native-swipe-out';
 
-let rightButtonHandler = new EventEmitter()
+import ConcertDatabase from '../Utils/Database';
+import ConcertDetailView from '../ConcertDetailView';
+import EditConcertPage from '../EditConcertPage';
+import styles from "./styles";
 
-let styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    paddingTop: 5,
-    marginTop: 0,
-    backgroundColor: '#333'
-  },
-  description: {
-    marginBottom: 30,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#fff'
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8
-  },
-  searchInput: {
-    height: 36,
-    width: 60,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#48BBEC',
-    borderRadius: 8,
-    color: '#48BBEC'
-  },
-  placeholderTextWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 100,
-    height: 300
-  },
-  placeholderText: {
-    marginTop: 30,
-    marginBottom: 20,
-    fontSize: 20,
-    color: '#656565'
-  },
-  placeholderMusicNote: {
-    width: 200,
-    height: 100
-  },
-  separator: {
-    height: 1,
-    marginLeft: 10,
-    marginTop: 10,
-    backgroundColor: 'rgba(80, 227, 194, 0.5)'
-  },
-  concertRowContainer: {
-    flexDirection: 'row',
-    paddingLeft: 12.5,
-    paddingTop: 10,
-    justifyContent: 'flex-start',
-    backgroundColor: '#333'
-  },
-  concertThumbnail: {
-    width: 65,
-    height: 65,
-    marginRight: 10,
-    borderRadius: 4
-  },
-  concertTextContainer: {
-    width: 230,
-    justifyContent: 'flex-start',
-    flexWrap: 'nowrap'
-  },
-  concertTextArtist: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#ffffff'
-  },
-  concertTextVenue: {
-    paddingTop: 3,
-    fontSize: 15,
-    color: '#ffffff'
-  },
-  concertTextLocationAndDate: {
-    paddingTop: 3,
-    fontSize: 12,
-    color: '#ffffff'
-  },
-  concertRating: {
-    color: "#50E3C2",
-    fontSize: 30,
-    alignSelf: 'center'
-  }
-
-});
-
+let rightButtonHandler = new EventEmitter();
 class ConcertDirectory extends Component {
 
   handleSaveButton() {
@@ -153,17 +46,17 @@ class ConcertDirectory extends Component {
   constructor(props) {
     super(props);
     let dataSource = new ListView.DataSource({
-          rowHasChanged(a, b) {
-              // Always re-render items.
-              return a.done !== b.done || a.text !== b.text || a.items || b.items;
-          }
+      rowHasChanged(a, b) {
+          // Always re-render items.
+          return a.done !== b.done || a.text !== b.text || a.items || b.items;
+      }
     });
     this.state = {
-        isLoading: false,
-        message: '',
-        refreshing: false,
-        hasConcerts: false,
-        dataSource: dataSource.cloneWithRows(this.getConcertData())
+      isLoading: false,
+      message: '',
+      refreshing: false,
+      hasConcerts: false,
+      dataSource: dataSource.cloneWithRows(this.getConcertData())
     };
   }
 
@@ -301,7 +194,7 @@ class ConcertDirectory extends Component {
 
     let placeholderText = (!this.state.hasConcerts)?
         <View style={styles.placeholderTextWrapper}>
-          <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('./images/musicnote.png')} />
+          <Image style={styles.placeholderMusicNote} resizeMode={Image.resizeMode.contain} source={require('../../images/musicnote.png')} />
           <Text style={styles.placeholderText}>
             No Concerts Added Yet
           </Text>
