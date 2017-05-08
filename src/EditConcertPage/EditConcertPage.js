@@ -3,7 +3,7 @@
 {/*
   *   Tourbook iOS App
   *
-  *   Add Concert Page
+  *   Edit Concert Page
   *
   *   Tourbook is an app to log and track shows you have
   *   attended. You can add pictures, notes, and more details.
@@ -19,182 +19,55 @@ import {
   Modal,
   StyleSheet,
   Text,
+  Slider,
   ScrollView,
   TextInput,
-  Slider,
   View,
   TouchableHighlight,
   ActivityIndicatorIOS,
   Image,
-  DatePickerIOS,
-  findNodeHandle
+  DatePickerIOS
 } from 'react-native';
 
-import ConcertDatabase from './Database';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import ConcertDatabase from '../Utils/Database';
+import styles from "./styles";
 
-let Platform = require('react-native').Platform;
-let ImagePicker = require('react-native-image-picker');
+let ImagePickerManager = require('NativeModules').ImagePickerManager;
+let Icon = require('react-native-vector-icons/FontAwesome');
 
-let styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#333'
-  },
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: '#333'
-  },
-  spinner: {
-    backgroundColor: "#ffffff",
-  },
-  photoInputs: {
-    flexDirection: 'row',
-    borderBottomColor: '#979797',
-    borderBottomWidth: 1
-  },
-  cameraInput: {
-    flex: 1,
-  },
-  ticketInput: {
-    flex: 1,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#fff',
-    alignSelf: 'center'
-  },
-  buttonCamera: {
-    backgroundColor: '#333',
-    borderRightColor: '#979797',
-    borderRightWidth: 1
-  },
-  buttonTicket: {
-    backgroundColor: '#333',
-  },
-  iconButtons: {
-    alignSelf: 'center',
-    paddingTop: 20,
-    paddingBottom: 20
-  },
-  artistInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    color: '#fff'
-  },
-  venueInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    borderColor: '#979797',
-    color: '#fff'
-  },
-  locationInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    borderColor: '#979797',
-    color: '#fff'
-  },
-  dateInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    borderColor: '#979797',
-    color: '#fff'
-  },
-  ratingInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    borderColor: '#979797',
-    color: '#808080'
-  },
-  notesInput: {
-    height: 150,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 22,
-    borderColor: '#979797',
-    color: '#fff'
-  },
-  flowRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'stretch'
-  },
-  detailInput: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  textInputFields: {
-    padding: 10,
-    borderStyle: 'solid',
-    borderBottomWidth: 1,
-    borderBottomColor: '#979797'
-  },
-  dateInputField: {
-    padding: 10,
-    borderStyle: 'solid',
-    borderBottomWidth: 1,
-    borderBottomColor: '#979797'
-  },
-  lastTextInputField: {
-    padding: 10,
-  },
-  dateView: {
-    alignItems: 'center'
-  },
-  uploadShowPicture: {
-    width: 200,
-    height: 100
-  },
-  sliderInput: {
-    height: 40
-  },
-  sliderInputText: {
-    fontSize: 22,
-    color: '#FFFFFF'
-  }
-});
+let cameraIcon = (<Icon name="camera" size={30} color="#900" />);
+let ticketIcon = (<Icon name="rocket" size={30} color="#900" />);
 
-class AddConcertPage extends Component {
+class EditConcertPage extends Component {
 
 componentDidMount() {
-  this.props.events.addListener('saveButtonPressed', this.saveConcert.bind(this));
+  this.props.events.addListener('editSaveButtonPressed', this.saveConcert.bind(this));
 }
 
 constructor(props) {
   super(props);
   this.showConcertImagePicker = this.showConcertImagePicker.bind(this);
   this.showTicketImagePicker = this.showTicketImagePicker.bind(this);
+
+  let concerts= this.props.concerts;
+  let index = this.props.row;
+
   this.state = {
       spinner: true,
       transparent: true,
-      isCameraIconVisible: true,
-      isConcertPhotoVisible: false,
-      isTicketIconVisible: true,
-      isTicketPhotoVisible: false,
+      isCameraIconVisible: false,
+      isConcertPhotoVisible: true,
+      isTicketIconVisible: false,
+      isTicketPhotoVisible: true,
       isDatePickerVisible: false,
       isActivitySpinnerVisible: false,
-      artist: '',
-      venue: '',
-      location: '',
-      showNotes: '',
-      concertPhoto: null,
-      ticketPhoto: null,
+      guid: concerts[index].guid,
+      artist: concerts[index].artist,
+      venue: concerts[index].venue,
+      location: concerts[index].location,
+      showNotes: concerts[index].showNotes,
+      concertPhoto: {uri: concerts[index].concertPhoto},
+      ticketPhoto: {uri: concerts[index].ticketPhoto},
       concertRating: 0,
       concertRatingSlider: 50,
       date: new Date("Mar 25 2015"),
@@ -214,8 +87,7 @@ createGuid() {
 }
 
 saveConcert() {
-  //Reminder of what a breakthrough this was...
-  alert('Concert Added');
+  alert('save edited concert called');
 
   // Check to see if input fields are empty
   if(this.state.artist == '' && this.state.venue == '' && this.state.location == '' && this.state.concertRatingSlider == 0 && this.state.concertPhoto == null && this.state.ticketPhoto == null && this.state.showNotes == ''){
@@ -224,7 +96,7 @@ saveConcert() {
     // Write to datebase
     ConcertDatabase.write(() => {
       ConcertDatabase.create('Concert',
-        {guid: this.createGuid(), // primary key
+        {guid: this.state.guid, // primary key
         name: this.state.artist,
         artist: this.state.artist,
         venue: this.state.venue,
@@ -233,16 +105,15 @@ saveConcert() {
         rating: this.state.concertRatingSlider,
         showNotes: this.state.showNotes,
         concertPhoto: this.state.concertPhoto.uri,
-        ticketPhoto: this.state.ticketPhoto.uri} );
-      //ConcertDatabase.create('Concert', [this.createGuid(), this.state.artist, this.state.artist, this.state.venue, this.state.location, this.state.formattedDate, this.state.concertRating, this.state.showNotes, this.state.concertPhoto.uri, this.state.ticketPhoto.uri]);
-      console.log('successfully wrote to the database');
+        ticketPhoto: this.state.ticketPhoto.uri}, true );
+      //ConcertDatabase.create('Concert', [this.createGuid(), this.state.artist, this.state.artist, this.state.venue, this.state.location, this.state.formattedDate, this.state.concertRatingSlider, this.state.showNotes, this.state.concertPhoto.uri, this.state.ticketPhoto.uri]);
+      console.log('successfully updated/wrote to the database');
     });
   }
   return true;
 }
 
 setDateModalVisible() {
-
   if(!this.state.isDatePickerVisible){
     this.setState({isDatePickerVisible: true});
   } else {
@@ -251,7 +122,6 @@ setDateModalVisible() {
 }
 
 onDateChange(date) {
-
     let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let month = monthNames[date.getUTCMonth()];
     let day = date.getUTCDate();
@@ -288,7 +158,6 @@ _toggleTransparent() {
 }
 
 showConcertImagePicker() {
-
     let options = {
       title: '', // specify null or empty string to remove the title
       cancelButtonTitle: 'Cancel',
@@ -306,12 +175,12 @@ showConcertImagePicker() {
         path: 'images' // will save image at /Documents/images rather than the root
       }
     };
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePickerManager.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePickerManager Error: ', response.error);
       }
       else {
           // Base64 Image (on iOS)
@@ -341,12 +210,12 @@ showTicketImagePicker() {
         path: 'images' // will save image at /Documents/images rather than the root
       }
     };
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePickerManager.showImagePicker(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePickerManager Error: ', response.error);
       }
       else {
           // Base64 Image (on iOS)
@@ -355,18 +224,6 @@ showTicketImagePicker() {
           this.onPictureAdd(source, selector);
       }
     });
-}
-
-// Scroll a component into view. Just pass the component ref string.
-inputFocused (refName) {
-  setTimeout(() => {
-    let scrollResponder = this.refs.scrollView.getScrollResponder();
-    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
-      React.findNodeHandle(this.refs[refName]),
-      110, //additionalOffset
-      true
-    );
-  }, 50);
 }
 
 onArtistTextChanged(event) {
@@ -389,15 +246,19 @@ onNotesTextChanged(event) {
   this.setState({ showNotes: event.nativeEvent.text });
   console.log(this.state.showNotes);
 }
-updateSliderRating(val) {
-  let sliderValue = val;
-  this.setState({concertRatingSlider: sliderValue});
-}
 
 render() {
 
+    let concerts= this.props.concerts;
+    let index = this.props.row;
+
+    //Update rating
+    let existingRating = concerts[index].rating;
+
+    let _scrollView: ScrollView;
     const CAMERA_ROLL_VIEW = 'camera_roll_view';
 
+    /* Note: these need to be updated to handle if there is no photo provided */
     let cameraIconBox = (this.state.isCameraIconVisible)?
           <TouchableHighlight
               onPress={this.showConcertImagePicker}
@@ -411,7 +272,7 @@ render() {
                   onPress={this.showConcertImagePicker}
                   style={styles.buttonCamera}
                   underlayColor='#333'>
-          <Image style={styles.uploadShowPicture} source={this.state.concertPhoto} />
+          <Image style={styles.uploadShowPicture} source={this.state.concertPhoto}/>
           </TouchableHighlight> : null;
 
     let ticketIconBox = (this.state.isTicketIconVisible)?
@@ -431,9 +292,9 @@ render() {
           </TouchableHighlight> : null;
 
     let dateInputBox = (this.state.isDatePickerVisible)?
-          <View>
+          <View style={styles.dateView}>
             <DatePickerIOS
-
+            style={styles.datePickerView}
             date={this.state.date}
             mode="date"
             onDateChange={this.onDateChange.bind(this)} />
@@ -446,7 +307,6 @@ render() {
           size="large" /> : null;
 
     return (
-      <ScrollView ref='scrollView' style={styles.scrollContainer}>
       <View style={styles.container}>
           {activitySpinner}
         <View style={styles.photoInputs}>
@@ -462,52 +322,48 @@ render() {
         <View style={styles.detailInput}>
           <View style={styles.textInputFields}>
           <TextInput
-                autoFocus={true}
                 style={styles.artistInput}
-                placeholderTextColor={'#808080'}
-                value={this.state.artistString}
+                placeholderTextColor={'#fff'}
+                value={this.state.artist}
                 onChange={this.onArtistTextChanged.bind(this)}
-                placeholder='Artist'/>
+                placeholder={'Artist'}/>
           </View>
           <View style={styles.textInputFields}>
           <TextInput
                 style={styles.venueInput}
-                placeholderTextColor={'#808080'}
-                value={this.state.venueString}
+                placeholderTextColor={'#fff'}
+                value={this.state.venue}
                 onChange={this.onVenueTextChanged.bind(this)}
-                placeholder='Venue'/>
+                placeholder={'Venue'}/>
           </View>
           <View style={styles.textInputFields}>
           <TextInput
                 style={styles.locationInput}
-                placeholderTextColor={'#808080'}
-                value={this.state.locationString}
+                placeholderTextColor={'#fff'}
+                value={this.state.location}
                 onChange={this.onLocationTextChanged.bind(this)}
-                placeholder='Location'/>
+                placeholder={'Location'}/>
           </View>
           <View style={styles.dateInputField}>
           <TouchableHighlight
               onPress={this.setDateModalVisible.bind(this)}>
           <TextInput
-                editable={false}
                 style={styles.dateInput}
-                placeholderTextColor={'#808080'}
+                placeholderTextColor={'#fff'}
                 value={this.state.formattedDate.toString()}
                 onFocus={this.setDateModalVisible.bind(this)}
                 onEndEditing={this.setDateModalVisible.bind(this)}
-                placeholder={'Date'}/>
+                placeholder={concerts[index].date}/>
           </TouchableHighlight>
           </View>
           {dateInputBox}
-
           <View style={styles.textInputFields}>
             <Text style={styles.ratingInput}>Rating  <Text style={styles.sliderInputText} >{this.state.concertRatingSlider}</Text></Text>
             <Slider style={styles.sliderInput} minimumTrackTintColor={'#50E3C2'} minimumValue={0} step={1} maximumValue={100} value={50} onValueChange={(value) => {this.setState({concertRatingSlider: value})}}/>
           </View>
-
           <View style={styles.lastTextInputField}>
-            <TextInput
-              autoFocus = {false}
+           <TextInput
+              autoFocus = {true}
               editable = {true}
               maxLength = {40}
               style={styles.notesInput}
@@ -521,8 +377,7 @@ render() {
           </View>
         </View>
       </View>
-      </ScrollView>
     );
   }
 }
-module.exports = AddConcertPage;
+module.exports = EditConcertPage;
