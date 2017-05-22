@@ -23,7 +23,7 @@ import {
 } from 'react-native';
 
 import { ListView } from 'realm/react-native';
-import ConcertDetailView from '../ConcertDetailView';
+import ConcertDetailPage from '../ConcertDetailPage';
 import ConcertDatabase from '../Utils/Database';
 import styles from "./styles";
 
@@ -55,7 +55,7 @@ class SearchResults extends Component {
     console.log(rowSelected);
     this.props.navigator.push({
       title: "Details",
-      component: ConcertDetailView,
+      component: ConcertDetailPage,
       passProps: {concerts: this.props.concerts, row: rowSelected}
     });
   }

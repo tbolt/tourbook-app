@@ -90,6 +90,7 @@ renderPastYearChart() {
   return (
     <View style={styles.pastYearGraph}>
       <Chart 
+        type="line"
         style={styles.chartLineGraph}
         chartData={chartDataHistory}
         verticalGridStep={5}
@@ -143,15 +144,15 @@ renderLastTimeAtConert() {
 render() {
   let databaseOutput = this.renderDatabaseOutput();
   let lastTimeAtConert = this.renderLastTimeAtConert();
-  let dataChart = this.renderDataChart();
-  let pastYearChart = this.renderPastYearChart();
+  //let dataChart = this.renderDataChart();
+  //let pastYearChart = this.renderPastYearChart();
   let topArtistGraph = this.renderTopArtistGraph();
   return (
     <View style={styles.container}>
       {databaseOutput}
       {lastTimeAtConert}
-      {dataChart}
-      {pastYearChart}
+      {/*dataChart*/}
+      {/*pastYearChart*/}
       {topArtistGraph}
     </View>
   );

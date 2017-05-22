@@ -31,7 +31,7 @@ import ConcertDatabase from '../Utils/Database';
 import AddConcertPage from '../AddConcertPage';
 import styles from "./styles";
 
-class ConcertDetailView extends Component {
+class ConcertDetailPage extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -117,4 +117,4 @@ class ConcertDetailView extends Component {
   }
 }
 
-module.exports = ConcertDetailView;
+module.exports = ConcertDetailPage;

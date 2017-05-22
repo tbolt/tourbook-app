@@ -43,6 +43,10 @@ class FavoritesPage extends Component {
   componentWillReceiveProps() {}
 
   render() {
+
+    //console.log(this.props)
+    //console.log(this.props.navigator);
+
     let spinner = (this.state.isLoading)? 
     ( <ActivityIndicatorIOS hidden='true' size='large'/> ) : ( <View/>);
     return (

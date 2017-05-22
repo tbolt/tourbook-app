@@ -32,7 +32,7 @@ import EventEmitter from 'wolfy87-eventemitter';
 import Swipeout from 'react-native-swipe-out';
 
 import ConcertDatabase from '../Utils/Database';
-import ConcertDetailView from '../ConcertDetailView';
+import ConcertDetailPage from '../ConcertDetailPage';
 import EditConcertPage from '../EditConcertPage';
 import styles from "./styles";
 
@@ -125,7 +125,7 @@ class ConcertDirectory extends Component {
     this.props.navigator.push({
       title: "",
       translucent: false,
-      component: ConcertDetailView,
+      component: ConcertDetailPage,
       passProps: {concerts: this.getConcertData(), row: artistIndex},
       rightButtonTitle: "Edit",
       backButtonTitle: 'Back',
