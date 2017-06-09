@@ -16,11 +16,11 @@
 
 import React, { Component } from 'react';
 import EventEmitter from 'wolfy87-eventemitter';
-import ConcertDirectory from '../ConcertDirectory';
-import AddConcertPage from '../AddConcertPage';
-import SettingsPage from '../SettingsPage';
-import FavoritesPage from '../FavoritesPage';
-import StatsPage from '../StatsPage';
+import HomeScreen from '../HomeScreen';
+import AddConcertScreen from '../AddConcertScreen';
+import SettingsScreen from '../SettingsScreen';
+import FavoritesScreen from '../FavoritesScreen';
+import StatsScreen from '../StatsScreen';
 import ConcertDatabase from '../Utils/Database';
 import {CONSTANT} from '../Utils/Constants';
 
@@ -64,7 +64,7 @@ class TabBarNavigation extends Component {
   onLeftButtonPress = () => {
     this.refs.navHome.push({
       title: CONSTANT.SETTINGS,
-      component: SettingsPage,
+      component: SettingsScreen,
       translucent: false
     })
   }
@@ -72,7 +72,7 @@ class TabBarNavigation extends Component {
   onRightButtonPress = () => {
     this.refs.navHome.push({
       title: "",
-      component: AddConcertPage,
+      component: AddConcertScreen,
       rightButtonTitle: CONSTANT.SAVE,
       translucent: false,
       onRightButtonPress: () => this.handleSaveButton(),
@@ -99,7 +99,7 @@ class TabBarNavigation extends Component {
       leftButtonIcon: gearIcon,
       rightButtonIcon: addIcon,
       title: CONSTANT.TITLE,
-      component: ConcertDirectory,
+      component: HomeScreen,
       onLeftButtonPress: () => { onLeftButtonPressed() },
       onRightButtonPress: () => { onPressRightButtonPressed() }
     }
@@ -111,7 +111,7 @@ class TabBarNavigation extends Component {
       navigationBarHidden: false,
       translucent: false,
       title: CONSTANT.TITLE,
-      component: FavoritesPage,
+      component: FavoritesScreen,
     });
   }
 
@@ -121,7 +121,7 @@ class TabBarNavigation extends Component {
       navigationBarHidden: false,
       translucent: false,
       title: CONSTANT.TITLE,
-      component: StatsPage
+      component: StatsScreen
     })
   }
 

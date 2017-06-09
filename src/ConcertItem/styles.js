@@ -101,5 +101,16 @@ export default StyleSheet.create({
     color: "#50E3C2",
     fontSize: 30,
     alignSelf: 'center'
-  }
+  },
+  iconButtons: {
+    width: 65,
+    height: 65,
+    alignSelf: 'center',
+    justifyContent: "center",
+  },
+  buttonCamera: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: "center",
+  },
 });

@@ -3,7 +3,7 @@
 {/*
   *   Tourbook iOS App
   *
-  *   Add Concert Page
+  *   Add Concert Screen
   *
   *   Tourbook is an app to log and track shows you have
   *   attended. You can add pictures, notes, and more details.
@@ -39,7 +39,7 @@ import DatabaseManager from "../Utils/DatabaseManager";
 let Platform = require('react-native').Platform;
 let ImagePicker = require('react-native-image-picker');
 
-class AddConcertPage extends Component {
+class AddConcertScreen extends Component {
   componentDidMount() {
     this.props.events.addListener('saveButtonPressed', this.saveConcert.bind(this));
   }
@@ -70,6 +70,7 @@ class AddConcertPage extends Component {
         timeZoneOffsetInHours: props.timeZoneOffsetInHours,
     };
   }
+
   saveConcert() {
     //Reminder of what a breakthrough this was...
     alert('Adding concert ... ');
@@ -97,13 +98,16 @@ class AddConcertPage extends Component {
         ticketPhoto: ticketPhotoURI      
       }
 
+      console.log("concertData", concertData);
       DatabaseManager.createConcert(concertData, function(result) {
+        console.log("DatabaseManager", result);
+        console.log("this.props", this.props);      
         if(result.success) {
-        
+          this.props.navigator.pop();
         } else {
 
         }
-      });
+      }.bind(this));
     }
     return true;
   }
@@ -156,7 +160,7 @@ class AddConcertPage extends Component {
   }
 
   onPictureAdd(image, selector) {
-    if(selector === IMAGE_PICKER.CONCERT_PHOTO){
+    if(selector === IMAGE_PICKER.CONCERT_PHOTO) {
       this.setState({
         concertPhoto: image,
         isCameraIconVisible: false,
@@ -198,7 +202,7 @@ class AddConcertPage extends Component {
     this.setState({ location: event.nativeEvent.text });
     console.log(this.state.location);
   }
-  onNotesTextChanged(event) {
+  onShowNotesTextChanged(event) {
     console.log('onShowNotesTextChanged');
     this.setState({ showNotes: event.nativeEvent.text });
     console.log(this.state.showNotes);
@@ -223,7 +227,7 @@ class AddConcertPage extends Component {
           onPress={this.showConcertImagePicker} underlayColor='#333'>
           <Image style={styles.uploadShowPicture} source={this.state.concertPhoto} />
         </TouchableHighlight>
-        </View>;
+      </View>;
     return (this.state.isCameraIconVisible)? cameraIconBox : concertPhotoBox;
   }
 
@@ -259,7 +263,7 @@ class AddConcertPage extends Component {
           value={this.state.notesString}
           maxLength={400}
           placeholderTextColor={'#808080'}
-          onEndEditing={this.onNotesTextChanged.bind(this)}
+          onChange={this.onShowNotesTextChanged.bind(this)}
           placeholder='Notes' />
       </View>
     );
@@ -370,4 +374,4 @@ class AddConcertPage extends Component {
     );
   }
 }
-module.exports = AddConcertPage;
+module.exports = AddConcertScreen;

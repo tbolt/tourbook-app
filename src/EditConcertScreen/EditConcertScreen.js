@@ -3,7 +3,7 @@
 {/*
   *   Tourbook iOS App
   *
-  *   Edit Concert Page
+  *   Edit Concert Screen
   *
   *   Tourbook is an app to log and track shows you have
   *   attended. You can add pictures, notes, and more details.
@@ -38,7 +38,7 @@ let Icon = require('react-native-vector-icons/FontAwesome');
 let cameraIcon = (<Icon name="camera" size={30} color="#900" />);
 let ticketIcon = (<Icon name="rocket" size={30} color="#900" />);
 
-class EditConcertPage extends Component {
+class EditConcertScreen extends Component {
 
 componentDidMount() {
   this.props.events.addListener('editSaveButtonPressed', this.saveConcert.bind(this));
@@ -380,4 +380,4 @@ render() {
     );
   }
 }
-module.exports = EditConcertPage;
+module.exports = EditConcertScreen;

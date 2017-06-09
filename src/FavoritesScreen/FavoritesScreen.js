@@ -3,7 +3,7 @@
 {/*
   *   Tourbook iOS App
   *
-  *   Favorites Pages
+  *   Favorites Screen
   *
   *   Tourbook is an app to log and track shows you have
   *   attended. You can add pictures, notes, and more details.
@@ -31,7 +31,7 @@ import ConcertDatabase from '../Utils/Database';
 let Icon = require('react-native-vector-icons/FontAwesome');
 let music = (<Icon name="music" size={30} color="#900" />);
 
-class FavoritesPage extends Component {
+class FavoritesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,10 +51,10 @@ class FavoritesPage extends Component {
     ( <ActivityIndicatorIOS hidden='true' size='large'/> ) : ( <View/>);
     return (
       <View style={styles.container}>
-        <Text style={styles.placeholderText}>Favorites Page Coming Soon</Text>
+        <Text style={styles.placeholderText}>Favorites Screen Coming Soon</Text>
       </View>
     );
   }
 }
 
-module.exports = FavoritesPage;
+module.exports = FavoritesScreen;
