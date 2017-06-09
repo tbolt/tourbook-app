@@ -15,26 +15,9 @@
 */}
 
 import React, { Component } from 'react';
-import {
-  Button,
-  Image,
-  View,
-  Text,
-  TouchableHighlight,
-  Modal
-} from 'react-native';
-
-import {BlurView, VibrancyView} from 'react-native-blur';
-import Lightbox from 'react-native-lightbox';
-
-import ConcertDatabase from '../Utils/Database';
-import AddConcertScreen from '../AddConcertScreen';
-import styles from "./styles";
-
 import ConcertDetailScreen from "./ConcertDetailScreen";
-
 class ConcertDetailScreenContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       animated: true,
@@ -43,90 +26,34 @@ class ConcertDetailScreenContainer extends Component {
       isNotesVisible: true
     };
   }
+
   componentWillMount() {
-    console.log(this.state.modalVisible);
+    //console.log(this.state.modalVisible);
   }
+
   _setModalVisible(visible) {
-    console.log(this.state.modalVisible);
+    //console.log(this.state.modalVisible);
     this.setState({modalVisible: visible});
   }
+
   _toggleAnimated() {
     this.setState({animated: !this.state.animated});
   }
+
   _toggleTransparent() {
     this.setState({transparent: !this.state.transparent});
   }
-  ticketPhotoPressed() {
-    alert('woah');
+
+  onTicketPhotoPress() {
+    console.log('onTicketPhotoPress');
   }
 
   render() {
-    /*let concerts = this.props.concerts;
-    let index = this.props.row;
-
-    if(concerts[index].showNotes == '') {
-      this.state.isNotesVisible = false
-    } else {
-      this.state.isNotesVisible = true
-    }   */
-
-    let concerts = this.props.concerts;
-    let index = this.props.row;
     return (
-      <ConcertDetailScreen data={concerts[index]} />
+      <ConcertDetailScreen data={this.props.concert} />
     );
   }  
 }
 
 export default ConcertDetailScreenContainer;
 
-/*let notes = (this.state.isNotesVisible)?
-  <View style={styles.concertNotesWrapper}>
-    <Text style={styles.concertNotesHeaderText}>Notes</Text>
-    <Text style={styles.concertDetailShowNotes}>{concerts[index].showNotes}</Text>
-  </View> : null;
-
-    console.log(concerts[index].showNotes);
-    return (
-      <View style={styles.concertDetailContainer}>
-        <Lightbox><Image style={styles.concertDetailImage} source={{uri: concerts[index].concertPhoto}}>
-          <View style={styles.concertDetailBlurWrapper}>
-          <BlurView blurType="light" style={styles.concertDetailBlurBox}>
-            <Text style={styles.concertDetailArtist}>{concerts[index].artist}</Text>
-          </BlurView>
-          </View>
-        </Image></Lightbox>
-        <View style={styles.concertRatingAndTicketWrapper}>
-          <View style={styles.concertDetailRatingWrapper}>
-          <Text style={styles.concertDetailRating}>{concerts[index].rating}</Text>
-          </View>
-          <Lightbox>
-            <Image style={styles.concertDetailTicketImage} source={{uri: concerts[index].ticketPhoto}}></Image>
-          </Lightbox>
-        </View>
-        <View style={styles.concertDetailsWrapper}>
-          <Text style={styles.concertDetailVenue}>{concerts[index].venue}</Text>
-          <Text style={styles.concertDetailLocation}>{concerts[index].location}</Text>
-          <Text style={styles.concertDetailDate}>{concerts[index].date}</Text>
-        </View>
-        {notes}
-       
-      </View>
-    );*/
-
-
-     /* Hold off on the modal for now
-      <Modal
-        animated={this.state.animated}
-        transparent={this.state.transparent}
-        visible={this.state.modalVisible} >
-          <View style={styles.modalContainer}>
-            <TouchableHighlight
-              onPress={() => this._setModalVisible(false)}
-              style={styles.modalButton}>
-              <Text style={styles.modalText}>Woah we gotta modal</Text>
-            </TouchableHighlight>
-          </View>
-      </Modal>
-
-          */

@@ -50,57 +50,18 @@ class SearchResultsContainer extends Component {
     });
   }
 
-  rowPressed(propertyGuid) {
-    let rowSelected = propertyGuid;
-    console.log(rowSelected);
+  rowPressed(rowSelected) {
+    let concert = this.props.concerts[rowSelected];
     this.props.navigator.push({
       title: "Details",
       component: ConcertDetailScreen,
-      passProps: {concerts: this.props.concerts, row: rowSelected}
+      passProps: {concert: concert}
     });
   }
 
-  /*renderRowData(data: Object) {
-    let artist = data.artist;
-    let concertPhoto = data.concertPhoto;
-    let location = data.location;
-    let rating = data.rating;
-    let venue = data.venue;
-    return (
-      <View>
-        <View style={styles.rowContainer}>
-          <Image style={styles.thumb} source={{ uri: concertPhoto }} />
-          <View style={styles.textContainer}>
-            <Text style={styles.price}>{artist}</Text>
-            <Text style={styles.title} numberOfLines={1}>{venue}</Text>
-            <Text style={styles.title} numberOfLines={1}>{location}</Text>
-          </View>
-          <Text style={styles.dateTemp} >{concertDate}</Text>
-          <Text style={styles.ratingTemp}>{rating}</Text>
-        </View>
-        <View style={styles.separator}/>
-      </View>
-    );
-  }
-
-  renderRow(rowData, sectionID, rowID) {
-    console.log(rowData);
-    let artist = rowData.artist;
-    let concertDate = rowData.date.toString();
-    let data = this.renderRowData(rowData);
-    return (
-      <TouchableHighlight 
-        onPress={()=>this.rowPressed(artist)}
-        underlayColor='#dddddd'>
-        {data}
-      </TouchableHighlight>
-    );
-  } */ 
-
   render() {
     return (
-      <SearchResults
-        data={this.state.dataSource}/>
+      <SearchResults data={this.state.dataSource}/>
     );
   }
 }

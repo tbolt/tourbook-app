@@ -113,27 +113,29 @@ class HomeScreenContainer extends Component {
     }
 
     artistIndex = indexOfId(this.getConcertData(), artist);
+    //, row: artistIndex},
+    let concerts = this.getConcertData();
+    let concert = concerts[artistIndex];
+
     this.props.navigator.push({
       title: "",
       translucent: false,
       component: ConcertDetailScreen,
-      passProps: {concerts: this.getConcertData(), row: artistIndex},
+      passProps: {concert: concert},
       rightButtonTitle: "Edit",
       backButtonTitle: 'Back',
       onRightButtonPress: () => this.props.navigator.push({
-          title: "",
-          component: EditConcertScreen,
-          translucent: false,
+        title: "",
+        component: EditConcertScreen,
+        translucent: false,
+        passProps: {concert: concert},
+        rightButtonTitle: "Save",
+        onRightButtonPress: () => this.handleSaveButton(),
           passProps: {
-            concerts: this.getConcertData(), row: artistIndex
-          },
-          rightButtonTitle: "Save",
-          onRightButtonPress: () => this.handleSaveButton(),
-          passProps: {
-            events: rightButtonHandler, concerts: this.getConcertData(), row: artistIndex
+            events: rightButtonHandler, 
+            concert: concert
           }
-          })
-
+      })
     });
   }
 
@@ -194,4 +196,4 @@ class HomeScreenContainer extends Component {
   }
 }
 
-module.exports = HomeScreenContainer;
+export default HomeScreenContainer;
