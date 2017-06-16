@@ -1,5 +1,6 @@
 export const CONSTANT = {
 	BACK_BUTTON_TITLE: "Back",
+	CAMERA_ROLL_VIEW: "cameraRollView",
 	CONCERT: "Concert",
 	HOME_NAME: "home",
 	HOME_NAV_REF: "navHome",
@@ -31,40 +32,47 @@ export const IMAGE_PICKER = {
 	TICKET_PHOTO: "ticketPhoto",
 	OPTIONS: {
 		CONCERT_PHOTO: {
-			title: '', // specify null or empty string to remove the title
+			title: '', 
       cancelButtonTitle: 'Cancel',
-      takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
-      chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
-      cameraType: 'back', // 'front' or 'back'
-      mediaType: 'photo', // 'photo' or 'video'
-      videoQuality: 'high', // 'low', 'medium', or 'high'
-      durationLimit: 10, // video recording max time in seconds
-      angle: 0, // photos only
-      allowsEditing: false, // Built in functionality to resize/reposition the image
-      noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
-      storageOptions: { // if this key is provided, the image will get saved in the documents/pictures directory (rather than a temporary directory)
-        skipBackup: true, // image will NOT be backed up to icloud
-        path: 'images' // will save image at /Documents/images rather than the root
+      takePhotoButtonTitle: 'Take Photo...', 
+      chooseFromLibraryButtonTitle: 'Choose from Library...', 
+      cameraType: 'back', 
+      mediaType: 'photo', 
+      videoQuality: 'high', 
+      durationLimit: 10, 
+      angle: 0, 
+      allowsEditing: false, 
+      noData: false, 
+      storageOptions: { 
+        skipBackup: true, 
+        path: 'images' 
       }
 		},
 		TICKET_PHOTO: {
-			title: '', // specify null or empty string to remove the title
+			title: '', 
       cancelButtonTitle: 'Cancel',
-      takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
-      chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
-      cameraType: 'back', // 'front' or 'back'
-      mediaType: 'photo', // 'photo' or 'video'
-      videoQuality: 'high', // 'low', 'medium', or 'high'
-      durationLimit: 10, // video recording max time in seconds
-      angle: 0, // photos only
-      allowsEditing: false, // Built in functionality to resize/reposition the image
-      noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
-      storageOptions: { // if this key is provided, the image will get saved in the documents/pictures directory (rather than a temporary directory)
-        skipBackup: true, // image will NOT be backed up to icloud
-        path: 'images' // will save image at /Documents/images rather than the root
+      takePhotoButtonTitle: 'Take Photo...', 
+      chooseFromLibraryButtonTitle: 'Choose from Library...', 
+      cameraType: 'back', 
+      mediaType: 'photo', 
+      videoQuality: 'high', 
+      durationLimit: 10, 
+      angle: 0, 
+      allowsEditing: false, 
+      noData: false, 
+      storageOptions: { 
+        skipBackup: true, 
+        path: 'images' 
       }
 		}
 	}
+}
+
+export const INPUT_FIELD = {
+	ARTIST: "Artist",
+	DATE: "Date",
+	LOCATION: "Location",
+	VENUE: "Venue"
 }
 
 export const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
