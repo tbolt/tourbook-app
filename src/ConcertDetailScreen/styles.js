@@ -149,5 +149,23 @@ export default StyleSheet.create({
   },
   lightBoxPhoto: {
     width: 1000
-  }
+  },
+   iconButtons: {
+    alignSelf: 'center',
+    justifyContent: "center",
+  },
+  buttonCamera: {
+    width: 300,
+    height: 300,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  ticketInput: {
+    flex: 1,
+  },
+  buttonTicket: {
+    backgroundColor: '#333',
+  },
 });

@@ -25,6 +25,7 @@ import {
 
 import { BlurView } from 'react-native-blur';
 import Lightbox from 'react-native-lightbox';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
 
 const ConcertDetailScreen = (props: Object) => { 
@@ -62,8 +63,8 @@ const ConcertDetailScreen = (props: Object) => {
 }
 
 ConcertDetailScreen.renderConcertImage = (artist: String, concertPhoto: Object) => {
-  return (
-    <Lightbox>
+  return (concertPhoto)?
+   (<Lightbox>
       <Image style={styles.concertDetailImage} source={{uri: concertPhoto}}>
         <View style={styles.concertDetailBlurWrapper}>
           <BlurView blurType="light" style={styles.concertDetailBlurBox}>
@@ -71,16 +72,14 @@ ConcertDetailScreen.renderConcertImage = (artist: String, concertPhoto: Object) 
           </BlurView>
         </View>
       </Image>
-    </Lightbox>
-  );
+    </Lightbox>) : ConcertDetailScreen.renderDefaultConcertIcon(()=>{});
 }
 
 ConcertDetailScreen.renderConcertTicket = (ticketPhoto: Object) => {
-  return (
-    <Lightbox>
+  return (ticketPhoto)?
+   (<Lightbox>
       <Image style={styles.concertDetailTicketImage} source={{uri: ticketPhoto}}/>
-    </Lightbox>
-  );
+    </Lightbox>): ConcertDetailScreen.renderDefaultTicketIcon(()=>{});
 }
 
 ConcertDetailScreen.renderConcertNotes = (showNotes: String) => {
@@ -92,19 +91,27 @@ ConcertDetailScreen.renderConcertNotes = (showNotes: String) => {
   );
 }
 
-export default ConcertDetailScreen;
+ConcertDetailScreen.renderDefaultConcertIcon = (onPress: Function) => {
+  return (
+    <TouchableHighlight 
+      style={styles.buttonCamera}
+      underlayColor='transparent'
+      onPress={onPress}>
+      <Icon name="camera" style={styles.iconButtons} size={50} color="#808080" />
+    </TouchableHighlight>
+  );
+}
 
-/* Hold off on the modal for now
-<Modal
-  animated={this.state.animated}
-  transparent={this.state.transparent}
-  visible={this.state.modalVisible} >
-    <View style={styles.modalContainer}>
-      <TouchableHighlight
-        onPress={() => this._setModalVisible(false)}
-        style={styles.modalButton}>
-        <Text style={styles.modalText}>Woah we gotta modal</Text>
+ConcertDetailScreen.renderDefaultTicketIcon = (onPress: Function) => {
+  return (
+    <View style={styles.ticketInput}>
+      <TouchableHighlight style={styles.buttonTicket}
+        onPress={onPress} 
+        underlayColor='#333'>
+        <Icon name="ticket" style={styles.iconButtons} size={60} color="#808080" />
       </TouchableHighlight>
     </View>
-</Modal>
-*/
+  );
+}
+
+export default ConcertDetailScreen;

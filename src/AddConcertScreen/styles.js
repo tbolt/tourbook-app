@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: '#333'
   },
   spinner: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
   },
   photoInputs: {
     flexDirection: 'row',

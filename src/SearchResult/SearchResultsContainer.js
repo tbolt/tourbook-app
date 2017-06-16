@@ -24,7 +24,7 @@ import {
 
 import { ListView } from 'realm/react-native';
 import ConcertDetailScreen from '../ConcertDetailScreen';
-import ConcertDatabase from '../Utils/Database';
+import Concert from '../Utils/Concert';
 import styles from "./styles";
 
 class SearchResultsContainer extends Component {  

@@ -15,7 +15,7 @@
 */}
 
 import React, { Component } from 'react';
-import ConcertDatabase from '../Utils/Database';
+import Concert from '../Utils/Concert';
 import StatsScreen from "./StatsScreen";
 import styles from "./styles";
 
@@ -38,7 +38,7 @@ class StatsScreenContainer extends Component {
   componentWillReceiveProps() {}
 
   onPressLastShowDate() {
-    let dates = ConcertDatabase.objects('Concert').filtered('date');
+    let dates = Concert.objects('Concert').filtered('date');
     console.log("onPressLastShowDate", dates[0]);
   }
 

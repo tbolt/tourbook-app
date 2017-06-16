@@ -17,38 +17,17 @@
 import React, { Component } from 'react';
 import {
   Text,
-  TextInput,
   View,
   TouchableHighlight,
   ActivityIndicatorIOS,
-  Image,
-  RefreshControl
 } from 'react-native';
 
 import styles from "./styles";
-import ConcertDatabase from '../Utils/Database';
-
-let Icon = require('react-native-vector-icons/FontAwesome');
-let music = (<Icon name="music" size={30} color="#900" />);
-
-class FavoritesScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      refreshing: false,
-    };
-  }
-
-  componentDidMount() {}
-  componentWillReceiveProps() {}
-
-  render() {
-
-    //console.log(this.props)
-    //console.log(this.props.navigator);
-
-    let spinner = (this.state.isLoading)? 
-    ( <ActivityIndicatorIOS hidden='true' size='large'/> ) : ( <View/>);
+const FavoritesScreen = (props: Object) => {
+  const { data, isLoading } = props;
+  if(isLoading) {
+    return <ActivityIndicatorIOS hidden='true' size='large'/>
+  } else {
     return (
       <View style={styles.container}>
         <Text style={styles.placeholderText}>Favorites Screen Coming Soon</Text>
@@ -57,4 +36,4 @@ class FavoritesScreen extends Component {
   }
 }
 
-module.exports = FavoritesScreen;
+export default FavoritesScreen;

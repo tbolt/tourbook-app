@@ -1,2 +1,4 @@
 import EditConcertScreen from "./EditConcertScreen";
-export default EditConcertScreen;
+import EditConcertScreenContainer from "./EditConcertScreenContainer";
+export  {EditConcertScreen};
+export default EditConcertScreenContainer;

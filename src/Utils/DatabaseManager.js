@@ -1,10 +1,10 @@
 import {CONSTANT} from "./Constants";
-import ConcertDatabase from './Database';
+import Concert from './Concert';
 
 exports.clearDatabase = (cb: Function) => {
-  ConcertDatabase.write(() => {
-    let concerts = ConcertDatabase.objects(CONSTANT.CONCERT);
-    ConcertDatabase.delete(concerts);
+  Concert.write(() => {
+    let concerts = Concert.objects(CONSTANT.CONCERT);
+    Concert.delete(concerts);
     console.log('Concerts successfully deleted');
    	cb({
    		success: true, 
@@ -29,8 +29,8 @@ exports.createConcert = (data: Object, cb: Function) => {
 		return cb(validResult)
 	}
   // Write to datebase
-  ConcertDatabase.write(() => {
-   	let result = ConcertDatabase.create(CONSTANT.CONCERT, data);
+  Concert.write(() => {
+   	let result = Concert.create(CONSTANT.CONCERT, data);
    	console.log('Concert successfully created');
    	cb({
    		success: true, 
@@ -38,6 +38,59 @@ exports.createConcert = (data: Object, cb: Function) => {
    		data: result
    	})
   });
+}
+
+exports.updateConcert = (guid: String, data: Object, cb: Function) => {	
+	if(!data || !guid) {
+		return cb({
+   		success: false, 
+   		errorMessage: "Invalid data was provided to create a update concert",
+   		error: data
+   	})
+	}
+	let concerts = Concert.objects(CONSTANT.CONCERT);
+	let concert = concerts.filtered('guid = $0', guid);
+  Concert.write(() => {
+  	//let modifiedConcert = updateConcertData(data, concert);
+		//concert = (modifiedConcert)? modifiedConcert: concert;
+   	 	console.log('Updating concert data', concert);	
+
+   	 	let concertData = {
+        name: artist,
+        artist: artist,
+        venue: venue,
+        location: location,
+        date: formattedDate,
+        rating: concertRatingSlider,
+        showNotes: showNotes,
+        concertPhoto: concertPhotoURI,
+        ticketPhoto: ticketPhotoURI      
+      }
+
+		if(data.name)
+			concert.name = data.name;
+		if(data.artist)
+			concert.artist = data.artist;
+		if(data.venue)
+			concert.venue = data.venue;
+		if(data.location)
+			concert.location = data.location;
+		if(data.rating)
+			concert.rating = data.rating;
+		if(data.showNotes)
+			concert.showNotes = data.showNotes;
+		if(data.concertPhoto)
+			concert.concertPhoto = data.concertPhoto;
+		if(data.ticketPhoto)
+			concert.ticketPhoto = data.ticketPhoto;	
+
+		   	 	console.log('Updated concert data', concert);	  	
+  });
+  cb({
+ 		success: true, 
+ 		message: "Successfully created concert",
+ 		data: concert
+ 	})
 }
 
 const CONCERT_NAME_REQUIRED = false;
@@ -50,6 +103,8 @@ const TICKET_PHOTO_REQUIRED = false;
 const SHOW_NOTES_REQUIRED = false;
 
 let validateConcertData = (data: Object) => {
+ 	console.log('Validating concert data');
+ 	if(!data)return;
 	if(!data.guid)
 		return {success: false, errorMessage: "GUID field was not provided", error:  data};
 	else if(CONCERT_NAME_REQUIRED && !data.name)
@@ -70,5 +125,27 @@ let validateConcertData = (data: Object) => {
 		return {success: false, errorMessage: "ticketPhoto field was not provided", error:  data};
 	else  
 		return {success: true, message: "all field are valid", data:  data};	
+}
+
+let updateConcertData = (data: Object, concert: Object) => {
+ 	console.log('Updating concert data');	
+ 	if(!data)return;
+	if(data.name)
+		concert.name = data.name;
+	if(data.artist)
+		concert.artist = data.artist;
+	if(data.venue)
+		concert.venue = data.venue;
+	if(data.location)
+		concert.location = data.location;
+	if(data.rating)
+		concert.rating = data.rating;
+	if(data.showNotes)
+		concert.showNotes = data.showNotes;
+	if(data.concertPhoto)
+		concert.concertPhoto = data.concertPhoto;
+	if(data.ticketPhoto)
+		concert.ticketPhoto = data.ticketPhoto;	
+	return concert;
 }
 

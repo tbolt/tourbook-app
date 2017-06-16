@@ -1,2 +1,4 @@
 import ConcertItem from "./ConcertItem";
-export default ConcertItem;
+import ConcertItemContainer from "./ConcertItemContainer";
+export {ConcertItem};
+export default ConcertItemContainer;

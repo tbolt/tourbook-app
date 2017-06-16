@@ -1,2 +1,4 @@
 import AddConcertScreen from "./AddConcertScreen";
-export default AddConcertScreen;
+import AddConcertScreenContainer from "./AddConcertScreenContainer";
+export {AddConcertScreen};
+export default AddConcertScreenContainer;

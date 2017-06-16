@@ -22,7 +22,7 @@ import {
 
 import {ListView} from 'realm/react-native';
 import EventEmitter from 'wolfy87-eventemitter';
-import ConcertDatabase from '../Utils/Database';
+import Concert from '../Utils/Concert';
 import ConcertDetailScreen from '../ConcertDetailScreen';
 import ConcertItem from '../ConcertItem';
 import EditConcertScreen from '../EditConcertScreen';
@@ -59,7 +59,7 @@ class HomeScreenContainer extends Component {
 
   componentDidMount() {
     // Check if there are any concerts in the database
-    let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+    let concertCheck = Array.prototype.slice.call(Concert.objects('Concert'));
     if(concertCheck.length == 0){
       this.setState({hasConcerts: false});
     } else if(concertCheck.length > 0){
@@ -70,7 +70,7 @@ class HomeScreenContainer extends Component {
   componentWillReceiveProps() {
     console.log('yay this runs...');
     this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
-    let concertCheck = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+    let concertCheck = Array.prototype.slice.call(Concert.objects('Concert'));
     if(concertCheck.length == 0){
       this.setState({hasConcerts: false});
     } else if(concertCheck.length >= 1){
@@ -81,7 +81,7 @@ class HomeScreenContainer extends Component {
   }
 
   getConcertData = () => {
-    let concertData = Array.prototype.slice.call(ConcertDatabase.objects('Concert'));
+    let concertData = Array.prototype.slice.call(Concert.objects('Concert'));
     return concertData;
   }
 
@@ -150,11 +150,11 @@ class HomeScreenContainer extends Component {
       underlayColor: '#282828',
       autoClose: 'true',
       onPress: () => {
-        ConcertDatabase.write(() => {
-          let concerts = ConcertDatabase.objects('Concert');
+        Concert.write(() => {
+          let concerts = Concert.objects('Concert');
           let filter = "guid == \"" + data.guid + "\"";
           let selectedConcert = concerts.filtered(filter);
-          ConcertDatabase.delete(selectedConcert);
+          Concert.delete(selectedConcert);
         });
       }
     }];
