@@ -13,6 +13,7 @@
   *   12/28/2016
   *
 */}
+
 const Realm = require('realm');
 class Concert {}
 Concert.schema = {
@@ -32,4 +33,4 @@ Concert.schema = {
   }
 };
 
-export default new Realm({schema: [Concert], schemaVersion: 400});
+export default Concert;

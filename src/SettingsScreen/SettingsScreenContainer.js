@@ -20,7 +20,7 @@ import {
 } from 'react-native';
 
 import {CONSTANT, COLOR} from "../Utils/Constants";
-import DatabaseManager from '../Utils/DatabaseManager';
+import RealmManager from '../Utils/RealmManager';
 import styles from "./styles";
 import SettingsScreen from "./SettingsScreen";
 
@@ -37,7 +37,7 @@ class SettingsScreenContainer extends Component {
   }
 
   clearDatabase = () => {
-    DatabaseManager.clearDatabase(function(result) {
+    RealmManager.clearDatabase(function(result) {
       if(result.success) {}
       else {}
     });

@@ -22,7 +22,7 @@ import {
 
 import {ListView} from 'realm/react-native';
 import EventEmitter from 'wolfy87-eventemitter';
-import Concert from '../Utils/Concert';
+import RealmManager from '../Utils/RealmManager';
 import ConcertDetailScreen from '../ConcertDetailScreen';
 import ConcertItem from '../ConcertItem';
 import EditConcertScreen from '../EditConcertScreen';
@@ -42,53 +42,50 @@ class HomeScreenContainer extends Component {
         return a.done !== b.done || a.text !== b.text || a.items || b.items;
       }
     });
-
-    let concertData = this.getConcertData();
     this.state = {
       isLoading: false,
       message: '',
-      refreshing: false,
       hasConcerts: false,
-      dataSource: dataSource.cloneWithRows(concertData)
+      dataSource: dataSource.cloneWithRows([{}])
     };
     this.renderRow = this.renderRow.bind(this);
-
+    this.updateConcertData = this.updateConcertData.bind(this);
     this.onConcertPress = this.onConcertPress.bind(this);
     this.onPhotoPress = this.onPhotoPress.bind(this);
   }
 
   componentDidMount() {
-    // Check if there are any concerts in the database
-    let concertCheck = Array.prototype.slice.call(Concert.objects('Concert'));
-    if(concertCheck.length == 0){
-      this.setState({hasConcerts: false});
-    } else if(concertCheck.length > 0){
-      this.setState({hasConcerts: true});
-    }
+    this.updateConcertData();   
   }
 
   componentWillReceiveProps() {
-    console.log('yay this runs...');
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
-    let concertCheck = Array.prototype.slice.call(Concert.objects('Concert'));
-    if(concertCheck.length == 0){
-      this.setState({hasConcerts: false});
-    } else if(concertCheck.length >= 1){
+    this.updateConcertData();   
+  }
+
+  updateConcertData = () => {
+    let concertData = this.getConcertData();
+    if(concertData && concertData.length == 0) {
       this.setState({
-        hasConcerts: true
+        hasConcerts: false,
+        dataSource: this.state.dataSource.cloneWithRows(concertData)
+      });
+    } else {
+      this.setState({
+        hasConcerts: true,
+        dataSource: this.state.dataSource.cloneWithRows(concertData)
       });
     }
   }
 
   getConcertData = () => {
-    let concertData = Array.prototype.slice.call(Concert.objects('Concert'));
-    return concertData;
+    let concerts = RealmManager.getConcerts();
+    return Array.prototype.slice.call(concerts);
   }
 
   refreshListView = () => {
-    this.setState({refreshing: true});
+    this.setState({isLoading: true});
     this.setState({dataSource: this.state.dataSource.cloneWithRows(this.getConcertData())});
-    this.setState({refreshing: false});
+    this.setState({isLoading: false});
   }
 
   onSearchPressed = () => {
@@ -149,12 +146,11 @@ class HomeScreenContainer extends Component {
       backgroundColor: '#FF5050',
       underlayColor: '#282828',
       autoClose: 'true',
-      onPress: () => {
-        Concert.write(() => {
-          let concerts = Concert.objects('Concert');
-          let filter = "guid == \"" + data.guid + "\"";
-          let selectedConcert = concerts.filtered(filter);
-          Concert.delete(selectedConcert);
+      onPress: ()=> {
+        RealmManager.deleteConcert(data.guid, (result) => {
+          if(result.success) {
+            this.updateConcertData();
+          }  
         });
       }
     }];

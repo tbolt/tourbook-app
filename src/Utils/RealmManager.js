@@ -1,10 +1,32 @@
-import {CONSTANT} from "./Constants";
-import Concert from './Concert';
+import { CONSTANT } from "./Constants";
+import RealmDatabase from './RealmDatabase';
+
+exports.getConcerts = () => {
+	return RealmDatabase.objects('Concert'); 
+}
+
+exports.getConcertsDates = () => {
+	return RealmDatabase.objects('Concert').filtered('date');
+}
+
+exports.deleteConcert = (guid: String, cb: Function) => {
+  RealmDatabase.write(() => {
+	  let concerts = RealmDatabase.objects('Concert');
+	  let filter = 'guid == "' + guid + '"';
+	  let concert = concerts.filtered(filter); 
+	  let result = RealmDatabase.delete(concert);
+	  cb({
+	 		success: true, 
+	 		message: "Successfully deleted concert",
+	 		data: result
+	  });
+	});
+}
 
 exports.clearDatabase = (cb: Function) => {
-  Concert.write(() => {
-    let concerts = Concert.objects(CONSTANT.CONCERT);
-    Concert.delete(concerts);
+  RealmDatabase.write(() => {
+    let concerts = RealmDatabase.objects(CONSTANT.CONCERT);
+    let result = RealmDatabase.delete(concerts);
     console.log('Concerts successfully deleted');
    	cb({
    		success: true, 
@@ -29,8 +51,8 @@ exports.createConcert = (data: Object, cb: Function) => {
 		return cb(validResult)
 	}
   // Write to datebase
-  Concert.write(() => {
-   	let result = Concert.create(CONSTANT.CONCERT, data);
+  RealmDatabase.write(() => {
+   	let result = RealmDatabase.create(CONSTANT.CONCERT, data);
    	console.log('Concert successfully created');
    	cb({
    		success: true, 
@@ -48,9 +70,9 @@ exports.updateConcert = (guid: String, data: Object, cb: Function) => {
    		error: data
    	})
 	}
-	let concerts = Concert.objects(CONSTANT.CONCERT);
+	let concerts = RealmDatabase.objects(CONSTANT.CONCERT);
 	let concert = concerts.filtered('guid = $0', guid);
-  Concert.write(() => {
+  RealmDatabase.write(() => {
   	//let modifiedConcert = updateConcertData(data, concert);
 		//concert = (modifiedConcert)? modifiedConcert: concert;
    	 	console.log('Updating concert data', concert);	
