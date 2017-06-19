@@ -33,9 +33,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Util from "../Utils/Util";
 import { COLOR, IMAGE_PICKER, INPUT_FIELD, MONTH_NAMES } from "../Utils/Constants";
 import styles from "./styles";
-import Concert from '../Utils/Concert';
 import Loader from '../Loader';
-import DatabaseManager from "../Utils/DatabaseManager";
+import RealmManager from "../Utils/RealmManager";
 
 let Platform = require('react-native').Platform;
 let ImagePicker = require('react-native-image-picker');

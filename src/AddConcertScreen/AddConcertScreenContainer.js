@@ -23,7 +23,7 @@ import Util from "../Utils/Util";
 import { IMAGE_PICKER, MONTH_NAMES } from "../Utils/Constants";
 import styles from "./styles";
 import AddConcertScreen from "./AddConcertScreen";
-import DatabaseManager from "../Utils/DatabaseManager";
+import RealmManager from "../Utils/RealmManager";
 
 class AddConcertScreenContainer extends Component {
   constructor(props) {
@@ -101,8 +101,8 @@ class AddConcertScreenContainer extends Component {
         concertPhoto: concertPhotoURI,
         ticketPhoto: ticketPhotoURI      
       }
-      DatabaseManager.createConcert(concertData, function(result) {
-        console.log("DatabaseManager", result);
+      RealmManager.createConcert(concertData, function(result) {
+        console.log("RealmManager", result);
         console.log("this.props", this.props);      
         if(result.success) {
           this.props.navigator.pop();
@@ -236,7 +236,6 @@ class AddConcertScreenContainer extends Component {
     this.setState({ venue: event.nativeEvent.text });
     console.log(this.state.venue);
   }
-
 
   updateSliderRating(val) {
     let sliderValue = val;

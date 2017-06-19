@@ -21,7 +21,6 @@ import AddConcertScreen from '../AddConcertScreen';
 import SettingsScreen from '../SettingsScreen';
 import FavoritesScreen from '../FavoritesScreen';
 import StatsScreen from '../StatsScreen';
-import Concert from '../Utils/Concert';
 import {CONSTANT} from '../Utils/Constants';
 
 import {

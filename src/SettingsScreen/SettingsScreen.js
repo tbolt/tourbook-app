@@ -24,7 +24,7 @@ import {
 } from 'react-native';
 
 import {CONSTANT, COLOR} from "../Utils/Constants";
-import DatabaseManager from '../Utils/DatabaseManager';
+import RealmManager from '../Utils/RealmManager';
 import styles from "./styles";
 
 const SettingsScreen = (props: Object) => {

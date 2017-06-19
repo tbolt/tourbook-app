@@ -15,7 +15,7 @@
 */}
 
 import React, { Component } from 'react';
-import Concert from '../Utils/Concert';
+import RealmManager from '../Utils/RealmManager';
 import StatsScreen from "./StatsScreen";
 import styles from "./styles";
 
@@ -38,7 +38,7 @@ class StatsScreenContainer extends Component {
   componentWillReceiveProps() {}
 
   onPressLastShowDate() {
-    let dates = Concert.objects('Concert').filtered('date');
+    let dates = RealmManager.getConcertsDates();
     console.log("onPressLastShowDate", dates[0]);
   }
 

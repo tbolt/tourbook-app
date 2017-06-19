@@ -16,8 +16,7 @@
 
 import React, { Component } from 'react';
 import { COLOR, IMAGE_PICKER, MONTH_NAMES } from "../Utils/Constants";
-import Concert from '../Utils/Concert';
-import DatabaseManager from "../Utils/DatabaseManager";
+import RealmManager from "../Utils/RealmManager";
 import Util from "../Utils/Util";
 import EditConcertScreen from "./EditConcertScreen";
 import styles from "./styles";
@@ -105,7 +104,7 @@ class EditConcertScreenContainer extends Component {
         concertPhoto: concertPhotoURI,
         ticketPhoto: ticketPhotoURI      
       }
-      DatabaseManager.updateConcert(guid, concertData, function(result) {
+      RealmManager.updateConcert(guid, concertData, function(result) {
         if(result.success) {
           this.props.navigator.pop();
         } else {
