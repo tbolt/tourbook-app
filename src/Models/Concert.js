@@ -9,7 +9,7 @@
   *   attended. You can add pictures, notes, and more details.
   *   You can also rate shows and share them to social networks.
   *
-  *   Tyler Bolchoz
+  *   
   *   12/28/2016
   *
 */}
